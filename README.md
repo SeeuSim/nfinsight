@@ -76,6 +76,12 @@ Thus, you may directly query the backend within your component code. If doing so
 
 You may refer to the NextJS 13 app directory documentation to learn more about file naming conventions within the `app` directory.
 
+### Editor Setup with Prettier
+
+If using VSCode, do set up the Prettier extension, and configure it as your default code formatter. Enable it on all typescript files, and **enable format on save/paste**.
+
+You may also run `npm run lint` or `pnpm lint` to auto-format all your files before each commit.
+
 ---
 
 ## Conclusion
