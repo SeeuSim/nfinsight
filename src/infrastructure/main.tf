@@ -1,8 +1,21 @@
-# Azure Static Web App instance
-resource "azurerm_static_site" "nfinsight" {
-  name                = "nfinsight"
-  resource_group_name = "main-rg"
-  location            = "Southeast Asia"
-  sku_size           = "Free"
-  tags                = local.common_tags
+terraform {
+  required_providers {
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = "~> 3.0.2"
+    }
+  }
+
+  required_version = ">= 1.1.0"
+}
+
+provider "azurerm" {
+  features {
+    
+  }
+}
+
+resource "azurerm_resource_group" "rm" {
+  name = "NFInsight"
+  location = "southeastasia"
 }
