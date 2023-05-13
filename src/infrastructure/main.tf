@@ -16,6 +16,6 @@ provider "azurerm" {
 }
 
 resource "azurerm_resource_group" "rm" {
-  name = "NFInsight"
+  name     = "NFInsight"
   location = "southeastasia"
 }
