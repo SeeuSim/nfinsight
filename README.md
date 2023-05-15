@@ -11,8 +11,6 @@ Here's the tech stack that we use:
   - Serverless: NextJS 13 API Routes, TRPC, Zod
   - Monolith: TBD, but we are looking at hosting an Azure Container with one of the following, for batch jobs/analytics/ETL:
 
-    - ExpressJS
-    - Rocket (Rust)
     - FastAPI
 
 - Database: We are currently in the midst of exploring if our workload can be shifted from PostgreSQL to Cassandra.
