@@ -32,7 +32,7 @@ resource "azurerm_cosmosdb_account" "db" {
   }
 
   capacity {
-    total_throughput_limit = 800
+    total_throughput_limit = 1000
   }
 
   backup {
@@ -56,5 +56,5 @@ resource "azurerm_cosmosdb_cassandra_keyspace" "kspc" {
   name = "nf-main-keyspace"
   resource_group_name = azurerm_resource_group.rm.name
   account_name = azurerm_cosmosdb_account.db.name
-  throughput = 400
+  throughput = 900
 }
