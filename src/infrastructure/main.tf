@@ -58,3 +58,21 @@ resource "azurerm_cosmosdb_cassandra_keyspace" "kspc" {
   account_name = azurerm_cosmosdb_account.db.name
   throughput = 900
 }
+
+resource "azurerm_storage_account" "nf_storage" {
+  name                     = "nfinsightstorage"
+  resource_group_name      = azurerm_resource_group.rm.name
+  location                 = azurerm_resource_group.rm.location
+  account_tier             = "Standard"
+  account_replication_type = "LRS"
+
+  tags = {
+    environment = "prod"
+  }
+}
+
+resource "azurerm_storage_container" "nf_build_container" {
+  name                  = "nfinsightcontainer"
+  storage_account_name  = azurerm_storage_account.nf_storage.name
+  container_access_type = "private"
+}
