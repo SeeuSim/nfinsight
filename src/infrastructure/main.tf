@@ -1,20 +1,3 @@
-terraform {
-  required_providers {
-    azurerm = {
-      source  = "hashicorp/azurerm"
-      version = "~> 3.0.2"
-    }
-  }
-
-  required_version = ">= 1.1.0"
-}
-
-provider "azurerm" {
-  features {
-
-  }
-}
-
 resource "azurerm_resource_group" "rm" {
   name     = "NFInsight"
   location = "southeastasia"
@@ -75,4 +58,8 @@ resource "azurerm_storage_container" "nf_build_container" {
   name                  = "nfinsightcontainer"
   storage_account_name  = azurerm_storage_account.nf_storage.name
   container_access_type = "private"
+}
+
+module "vm" {
+  source = "./vm"
 }
