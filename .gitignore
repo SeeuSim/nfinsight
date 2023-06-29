@@ -39,3 +39,6 @@ next-env.d.ts
 terraform.tfstate
 terraform.tfstate.backup
 **/*.terraform.lock.hcl
+
+# envrironments
+.env.local

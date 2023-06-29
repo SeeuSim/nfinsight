@@ -1,6 +1,8 @@
 import "./globals.css";
 import { Inter } from "next/font/google";
-import { TrpcProvider } from "@/components/providers/trpcProvider";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+
+import QueryProvider from "@/components/providers/QueryProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,9 +18,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <TrpcProvider>
+      <QueryProvider>
         <body className={inter.className}>{children}</body>
-      </TrpcProvider>
+        <ReactQueryDevtools initialIsOpen={false} />
+      </QueryProvider>
     </html>
   );
 }
