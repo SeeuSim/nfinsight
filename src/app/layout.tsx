@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 import QueryProvider from "@/components/providers/QueryProvider";
+import Navbar from "@/components/Navbar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,10 +19,15 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <QueryProvider>
-        <body className={inter.className}>{children}</body>
-        <ReactQueryDevtools initialIsOpen={false} />
-      </QueryProvider>
+      <body className={inter.className}>
+        <main>
+          <QueryProvider>
+            <Navbar />
+            {children}
+            <ReactQueryDevtools initialIsOpen={false} />
+          </QueryProvider>
+        </main>
+      </body>
     </html>
   );
 }
