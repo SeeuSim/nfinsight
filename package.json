@@ -6,10 +6,12 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint && prettier --config ./.prettierrc.js './src/**/*.{ts,tsx}' --write"
+    "fmt": "prettier --write --config ./.prettierrc.js **/*.tsx",
+    "lint": "next lint"
   },
   "dependencies": {
     "@grpc/grpc-js": "^1.8.17",
+    "@radix-ui/react-dialog": "^1.0.4",
     "@stargate-oss/stargate-grpc-node-client": "^0.2.3",
     "@tanstack/react-query": "^4.29.19",
     "@tanstack/react-query-devtools": "^4.29.19",

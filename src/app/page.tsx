@@ -1,4 +1,5 @@
-'use client'
+"use client";
+import MainLayout from "@/components/layouts/MainLayout";
 import { useQuery } from "@tanstack/react-query";
 
 export default function MainPage() {
@@ -8,7 +9,7 @@ export default function MainPage() {
       return await fetch(`/api/meta`, {
         method: "POST",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           route: "/",
@@ -20,5 +21,9 @@ export default function MainPage() {
       }).then((res) => res.json());
     },
   });
-  return <div></div>;
+  return (
+    <MainLayout>
+      <span>Main Page</span>
+    </MainLayout>
+  );
 }
