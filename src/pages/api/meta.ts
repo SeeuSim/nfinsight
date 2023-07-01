@@ -21,7 +21,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
   //Check for missing parameters
   if (params["route"] == undefined || params["queries"] == undefined) {
-    return res.status(422).json({ message: "Invalid parameters provided" });
+    return res.status(422).json({ message: "Invalid parameters provided :p" });
   }
 
   //Check for invalid parameters
