@@ -7,7 +7,9 @@ import { useQuery } from "@tanstack/react-query";
 import { QueryResult } from "pg";
 
 export default function MainPage() {
-  const { data, isFetching, isLoading, isError } = useQuery<QueryResult<RankResultType>>({
+  const { data, isFetching, isLoading, isError } = useQuery<
+    QueryResult<RankResultType>
+  >({
     queryKey: ["meta"],
     queryFn: async () => {
       return await fetch(`/api/meta`, {
@@ -28,7 +30,7 @@ export default function MainPage() {
   });
   return (
     <MainLayout>
-      <DataTable columns={homeColumns} data={data?.rows?? []}/>
+      <DataTable columns={homeColumns} data={data?.rows ?? []} />
     </MainLayout>
   );
 }

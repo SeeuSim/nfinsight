@@ -33,11 +33,13 @@ export const homeColumns: ColumnDef<RankResultType>[] = [
     header: "Floor Price",
     cell: ({ row }) => {
       const decimalValue: string = row.getValue("floor");
-      const numValue = Number.parseFloat(decimalValue).toLocaleString('en-GB', {
-        maximumFractionDigits: 3,
-        style: 'currency',
-        currency: 'ETH'
-      }).replace("NaN", "  0");
+      const numValue = Number.parseFloat(decimalValue)
+        .toLocaleString("en-GB", {
+          maximumFractionDigits: 3,
+          style: "currency",
+          currency: "ETH",
+        })
+        .replace("NaN", "  0");
       return (
         <div>
           <span>{numValue}</span>
