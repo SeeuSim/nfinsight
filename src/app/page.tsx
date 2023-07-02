@@ -1,13 +1,21 @@
 "use client";
+import { useQuery } from "@tanstack/react-query";
+import type { QueryResult } from "pg";
+
 import MainLayout from "@/components/layouts/MainLayout";
 import { DataTable } from "@/components/ui/data-table";
-import { RankResultType } from "@/lib/database/postgres/dashClient";
+import type { RankResultType } from "@/lib/database/postgres/dashClient";
 import { homeColumns } from "@/lib/tables/(home)/columns";
-import { useQuery } from "@tanstack/react-query";
-import { QueryResult } from "pg";
+import { useEffect } from "react";
+import { useHomeState } from "@/lib/state/homeState";
+import DataSelector from "@/components/(home)/DataSelector";
 
 export default function MainPage() {
-  const { data, isFetching, isLoading, isError } = useQuery<
+  const [rank, duration] = useHomeState((state) => [
+    state.rank,
+    state.duration,
+  ]);
+  const { data, isFetching, isLoading, isError, refetch } = useQuery<
     QueryResult<RankResultType>
   >({
     queryKey: ["meta"],
@@ -20,17 +28,24 @@ export default function MainPage() {
         body: JSON.stringify({
           route: "/",
           queries: {
-            rank: "avg_price",
-            duration: "DURATION_1_DAY",
+            rank: rank,
+            duration: duration,
           },
         }),
       }).then((res) => res.json());
     },
-    // enabled: false
   });
+
+  useEffect(() => {
+    refetch();
+  }, [rank, duration]);
+
   return (
     <MainLayout>
-      <DataTable columns={homeColumns} data={data?.rows ?? []} />
+      <div className="flex w-full flex-col space-y-4 px-8 py-4">
+        <DataSelector />
+        <DataTable columns={homeColumns} data={data?.rows ?? []} />
+      </div>
     </MainLayout>
   );
 }

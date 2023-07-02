@@ -1,7 +1,7 @@
 import { ColumnDef } from "@tanstack/react-table";
-import Image from "next/image";
 
-import { RankResultType } from "@/lib/database/postgres/dashClient";
+import type { RankResultType } from "@/lib/database/postgres/dashClient";
+import CollectionThumbnail from "@/components/images/CollectionThumbnail";
 
 export const homeColumns: ColumnDef<RankResultType>[] = [
   {
@@ -9,14 +9,7 @@ export const homeColumns: ColumnDef<RankResultType>[] = [
     header: "",
     cell: ({ row }) => {
       const href = row.getValue("image");
-      return (
-        <Image
-          src={href as string}
-          width={64}
-          height={64}
-          alt="Collection Artwork"
-        />
-      );
+      return <CollectionThumbnail src={href as string} size={64} />;
     },
   },
   {
@@ -35,14 +28,13 @@ export const homeColumns: ColumnDef<RankResultType>[] = [
       const decimalValue: string = row.getValue("floor");
       const numValue = Number.parseFloat(decimalValue)
         .toLocaleString("en-GB", {
+          minimumFractionDigits: 1,
           maximumFractionDigits: 3,
-          style: "currency",
-          currency: "ETH",
         })
         .replace("NaN", "  0");
       return (
         <div>
-          <span>{numValue}</span>
+          <span>{numValue}&nbsp;ETH</span>
         </div>
       );
     },

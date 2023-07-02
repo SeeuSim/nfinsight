@@ -30,9 +30,13 @@ export interface RankResultType {
 export const getRankTable = async ({
   rank,
   duration,
+  limit = 10,
+  skip = 0,
 }: {
   rank: string;
   duration: string;
+  limit?: number;
+  skip?: number;
 }) => {
   if (
     !(
@@ -43,6 +47,9 @@ export const getRankTable = async ({
     return undefined;
   }
 
+  const validatedSkip = skip < 0 || skip > 90 ? 0 : skip;
+  const validatedLimit = limit < 0 || limit > 100 ? 10 : limit;
+
   const pool = getPool();
   const res = await pool.query<RankResultType>(`
     SELECT c.image, c.name, c.address, c.floor, r.value
@@ -52,6 +59,7 @@ export const getRankTable = async ({
     WHERE r.rank = '${rank}'
     AND r.duration = '${duration}'
     ORDER BY r.value DESC
+    LIMIT ${validatedLimit} OFFSET ${validatedSkip}
   `);
   return res;
 };
