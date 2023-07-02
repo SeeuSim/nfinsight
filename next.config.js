@@ -4,15 +4,15 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: 'ethereum.cdn.mnemonichq.com',
+        protocol: "https",
+        hostname: "ethereum.cdn.mnemonichq.com",
       },
       {
-        protocol: 'https',
-        hostname: 'ethereum.cdn-proxy.mnemonichq.com',
+        protocol: "https",
+        hostname: "ethereum.cdn-proxy.mnemonichq.com",
       },
     ],
   },
-}
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;

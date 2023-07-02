@@ -3,10 +3,23 @@ import { ColumnDef } from "@tanstack/react-table";
 import type { RankResultType } from "@/lib/database/postgres/dashClient";
 import CollectionThumbnail from "@/components/images/CollectionThumbnail";
 
-export const homeColumns: ColumnDef<RankResultType>[] = [
+interface GetHomeColumnProps {
+  displayValue: string;
+}
+
+export const getHomeColumns: ({
+  displayValue,
+}: GetHomeColumnProps) => ColumnDef<RankResultType>[] = ({ displayValue }) => [
+  {
+    id: "index",
+    cell: ({ row }) => (
+      <div className="">
+        <span className="text-base font-medium">{row.index + 1}.</span>
+      </div>
+    ),
+  },
   {
     accessorKey: "image",
-    header: "",
     cell: ({ row }) => {
       const href = row.getValue("image");
       return <CollectionThumbnail src={href as string} size={64} />;
@@ -14,16 +27,28 @@ export const homeColumns: ColumnDef<RankResultType>[] = [
   },
   {
     accessorKey: "name",
-    header: "Collection Name",
+    header: ({ column }) => (
+      <div>
+        <span className="text-sm font-semibold text-foreground md:text-lg">
+          Collection Name
+        </span>
+      </div>
+    ),
     cell: ({ row }) => (
       <div>
-        <span>{row.getValue("name")}</span>
+        <span className="text-base font-medium">{row.getValue("name")}</span>
       </div>
     ),
   },
   {
     accessorKey: "floor",
-    header: "Floor Price",
+    header: ({ column }) => (
+      <div className="hidden md:block">
+        <span className="text-sm font-semibold text-foreground md:text-lg">
+          Floor Price
+        </span>
+      </div>
+    ),
     cell: ({ row }) => {
       const decimalValue: string = row.getValue("floor");
       const numValue = Number.parseFloat(decimalValue)
@@ -33,15 +58,21 @@ export const homeColumns: ColumnDef<RankResultType>[] = [
         })
         .replace("NaN", "  0");
       return (
-        <div>
-          <span>{numValue}&nbsp;ETH</span>
+        <div className="hidden md:block">
+          <span className="text-base font-medium">{numValue}&nbsp;ETH</span>
         </div>
       );
     },
   },
   {
     accessorKey: "value",
-    header: "Value",
+    header: ({ column }) => (
+      <div>
+        <span className="text-sm font-semibold text-foreground md:text-lg">
+          {displayValue}
+        </span>
+      </div>
+    ),
     cell: ({ row }) => {
       const decimalValue: string = row.getValue("value");
       const numValue = Number.parseFloat(decimalValue).toLocaleString("en-GB", {
@@ -49,7 +80,9 @@ export const homeColumns: ColumnDef<RankResultType>[] = [
       });
       return (
         <div>
-          <span>{numValue}</span>
+          <span className="text-base font-medium">
+            {numValue}&nbsp;{displayValue != "Sales Count" ? "ETH" : ""}
+          </span>
         </div>
       );
     },

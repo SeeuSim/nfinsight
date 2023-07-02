@@ -5,15 +5,16 @@ import type { QueryResult } from "pg";
 import MainLayout from "@/components/layouts/MainLayout";
 import { DataTable } from "@/components/ui/data-table";
 import type { RankResultType } from "@/lib/database/postgres/dashClient";
-import { homeColumns } from "@/lib/tables/(home)/columns";
+import { getHomeColumns } from "@/lib/tables/(home)/columns";
 import { useEffect } from "react";
 import { useHomeState } from "@/lib/state/homeState";
 import DataSelector from "@/components/(home)/DataSelector";
 
 export default function MainPage() {
-  const [rank, duration] = useHomeState((state) => [
+  const [rank, duration, label] = useHomeState((state) => [
     state.rank,
     state.duration,
+    state.label,
   ]);
   const { data, isFetching, isLoading, isError, refetch } = useQuery<
     QueryResult<RankResultType>
@@ -42,9 +43,13 @@ export default function MainPage() {
 
   return (
     <MainLayout>
-      <div className="flex w-full flex-col space-y-4 px-8 py-4">
+      <div className="flex w-full flex-col space-y-4 p-8 pt-4">
         <DataSelector />
-        <DataTable columns={homeColumns} data={data?.rows ?? []} />
+        <DataTable
+          loading={isLoading}
+          columns={getHomeColumns({ displayValue: label })}
+          data={data?.rows ?? []}
+        />
       </div>
     </MainLayout>
   );

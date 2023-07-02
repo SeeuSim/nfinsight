@@ -30,7 +30,7 @@ export interface RankResultType {
 export const getRankTable = async ({
   rank,
   duration,
-  limit = 10,
+  limit = 100,
   skip = 0,
 }: {
   rank: string;

@@ -39,7 +39,11 @@ const timeOptions = [
 const MnemonicRanks = ["avg_price", "max_price"];
 
 const DataSelector = () => {
-  const [rank, set] = useHomeState((state) => [state.rank, state.set]);
+  const [rank, set, setLabel] = useHomeState((state) => [
+    state.rank,
+    state.set,
+    state.setLabel,
+  ]);
 
   const onSelectRank = (value: string) => {
     if (MnemonicRanks.includes(value) && !MnemonicRanks.includes(rank)) {
@@ -51,6 +55,7 @@ const DataSelector = () => {
       set(timeOptions.filter((v) => v.index === "Gallop")[0].value, "duration");
     }
     set(value, "rank");
+    setLabel(rankOptions.find((v) => v.value === value)?.label ?? "");
   };
 
   return (
@@ -60,7 +65,7 @@ const DataSelector = () => {
         font.className
       )}
     >
-      <span className="whitespace-nowrap text-end text-xl font-semibold">
+      <span className="whitespace-nowrap text-end text-sm font-semibold md:text-xl">
         Top Collections by&nbsp;
       </span>
       <Select onValueChange={onSelectRank}>
@@ -75,7 +80,7 @@ const DataSelector = () => {
           ))}
         </SelectContent>
       </Select>
-      <span className="whitespace-nowrap text-end text-xl font-semibold">
+      <span className="whitespace-nowrap text-end text-sm font-semibold md:text-xl">
         For&nbsp;
       </span>
       <Select onValueChange={(value) => set(value, "duration")}>
