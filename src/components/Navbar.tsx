@@ -18,7 +18,7 @@ const Navbar = () => {
         `fixed left-0 right-0 top-0 z-50 flex h-20 items-center justify-between border-b-2 shadow-sm backdrop-blur-sm`,
         `border-slate-900 dark:border-slate-700`,
         `bg-yellow-300 dark:bg-slate-900/75`,
-        font.className
+        font.className  
       )}
     >
       <Link href="/">
@@ -37,10 +37,14 @@ const Navbar = () => {
         <ShadowLink text="Account" href="/account" />
       </div>
       <div className="inline-flex h-full">
-        <AuthLink text="Login" href="/login" />
-        <AuthLink text="Sign Up" href="/signup" />
+        <div className="bg-gray-300">
+          <AuthLink text="Login" href="/login" />
+        </div>
+        <div className="bg-green-300">
+          <AuthLink text="Sign Up" href="/signup" />
+        </div>
+      </div>    
       </div>
-    </div>
   );
 };
 
