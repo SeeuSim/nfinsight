@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { getPool } from "@/lib/database/postgres";
+
+import { getRankTable } from "@/lib/database/postgres/dashClient";
 import { withMethods } from "@/lib/middlewares/withMethods";
 
 interface Payload {
@@ -32,6 +33,20 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     if (params.queries[requiredQueryParam] == undefined) {
       return res.status(422).json({ message: "Missing required parameters" });
     }
+  }
+  
+  if (params.route === "/") {
+    const result = await getRankTable({
+      rank: params.queries['rank'],
+      duration: params.queries['duration']
+    })
+    if (result == undefined) {
+      return res.status(422).json({ message: "Wrong parameters"})
+    }
+    res.setHeader('Cache-Control', 's-maxage=3600');
+    return res.status(200).json({
+      ...result,
+    })
   }
 
   return res.status(200).json({

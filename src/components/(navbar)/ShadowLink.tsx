@@ -9,8 +9,8 @@ const ShadowLink = ({ text = "", href = "#" }) => {
         {/* Background shadow */}
         <span
           className={cn(
-            `flex text-slate-800 group-hover:underline`,
-            `group-hover:text-yellow-600 `
+            "flex text-slate-800",
+            "group-hover:text-blue-400 group-hover:underline"
           )}
         >
           {text}
@@ -18,7 +18,10 @@ const ShadowLink = ({ text = "", href = "#" }) => {
 
         {/* Main Span*/}
         <span
-          className={`absolute -translate-y-[calc(50%+14px)] text-slate-900 group-hover:-translate-x-[1px] group-hover:-translate-y-[calc(50%+15px)]`}
+          className={cn(
+            "absolute -translate-y-[calc(50%+14px)] text-slate-900",
+            "group-hover:-translate-x-[1px] group-hover:-translate-y-[calc(50%+15px)]"
+          )}
         >
           {text}
         </span>
