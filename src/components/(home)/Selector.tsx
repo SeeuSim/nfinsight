@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { useAnimate } from "framer-motion";
 import { ChevronDown } from "lucide-react";
@@ -23,7 +23,7 @@ interface SelectorProps<T> {
   onValueChange: (value: string) => void;
   fontClassName?: string;
   hideOption?: (value: Option) => boolean;
-  options: T[]
+  options: T[];
 }
 
 const Selector = <T extends Option>({

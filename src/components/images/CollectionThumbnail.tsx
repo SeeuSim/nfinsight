@@ -4,7 +4,8 @@ import { Suspense, useState } from "react";
 
 const CollectionThumbnail = ({ src, size }: { src: string; size: number }) => {
   const [isError, setIsError] = useState(false);
-  const imageClass = "rounded-xl border-2 border-accent-foreground object-cover hover:-translate-x-[1px] hover:-translate-y-[1px] hover:border-b-4 hover:border-r-4"
+  const imageClass =
+    "rounded-xl border-2 border-accent-foreground object-cover hover:-translate-x-[1px] hover:-translate-y-[1px] hover:border-b-4 hover:border-r-4";
   return (
     <div className={`w-[${size}px] h-[${size}px] hidden md:block`}>
       <Suspense
