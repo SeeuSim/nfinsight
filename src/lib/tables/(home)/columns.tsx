@@ -20,6 +20,13 @@ export const getHomeColumns: ({
   },
   {
     accessorKey: "image",
+    header: ({ column }) => (
+      <div>
+        <span className="text-sm font-semibold text-foreground md:text-lg">
+          Image
+        </span>
+      </div>
+    ),
     cell: ({ row }) => {
       const href = row.getValue("image");
       return <CollectionThumbnail src={href as string} size={64} />;
