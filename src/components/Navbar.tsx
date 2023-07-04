@@ -27,8 +27,12 @@ const Navbar = () => {
         <ShadowLink text="Account" href="/account" />
       </div>
       <div className="hidden h-full md:inline-flex">
-        <AuthLink text="Login" href="/login" />
-        <AuthLink text="Sign Up" href="/signup" />
+        <div className="bg-gray-300">
+          <AuthLink text="Login" href="/login" />
+        </div>
+        <div className="bg-green-300">
+          <AuthLink text="Sign Up" href="/signup" />
+        </div>
       </div>
       <div className="block md:hidden">
         <MobileMenu />
