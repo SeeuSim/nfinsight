@@ -1,16 +1,8 @@
-"use client";
-
 import { IBM_Plex_Mono } from "next/font/google";
 
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { useHomeState } from "@/lib/state/homeState";
 import { cn } from "@/lib/utils";
+import Selector from "./Selector";
 
 const font = IBM_Plex_Mono({
   weight: ["100", "200", "300", "400", "500", "600", "700"],
@@ -39,8 +31,9 @@ const timeOptions = [
 const MnemonicRanks = ["avg_price", "max_price"];
 
 const DataSelector = () => {
-  const [rank, set, setLabel] = useHomeState((state) => [
+  const [rank, duration, set, setLabel] = useHomeState((state) => [
     state.rank,
+    state.duration,
     state.set,
     state.setLabel,
   ]);
@@ -61,49 +54,32 @@ const DataSelector = () => {
   return (
     <div
       className={cn(
-        "grid w-fit grid-cols-2 grid-rows-2 items-center gap-4",
+        "grid w-fit grid-cols-2 grid-rows-2 items-center",
         font.className
       )}
     >
       <span className="whitespace-nowrap text-end text-sm font-semibold md:text-xl">
         Top Collections by&nbsp;
       </span>
-      <Select onValueChange={onSelectRank}>
-        <SelectTrigger>
-          <SelectValue placeholder="Average Price" />
-        </SelectTrigger>
-        <SelectContent>
-          {rankOptions.map((v, i) => (
-            <SelectItem key={i} value={v.value}>
-              {v.label}
-            </SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
+      <Selector
+        options={rankOptions}
+        value={rank}
+        onValueChange={onSelectRank}
+        fontClassName={font.className}
+      />
       <span className="whitespace-nowrap text-end text-sm font-semibold md:text-xl">
         For&nbsp;
       </span>
-      <Select onValueChange={(value) => set(value, "duration")}>
-        <SelectTrigger>
-          <SelectValue placeholder="1 Day" />
-        </SelectTrigger>
-        <SelectContent>
-          {timeOptions.map((v, i) => (
-            <SelectItem
-              className={cn(
-                (MnemonicRanks.includes(rank) && v.index != "Mnemonic") ||
-                  (!MnemonicRanks.includes(rank) && v.index != "Gallop")
-                  ? "hidden"
-                  : ""
-              )}
-              key={i}
-              value={v.value}
-            >
-              {v.label}
-            </SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
+      <Selector
+        fontClassName={font.className}
+        value={duration}
+        onValueChange={(value) => set(value, "duration")}
+        options={timeOptions}
+        hideOption={(v) =>
+          (MnemonicRanks.includes(rank) && v.index != "Mnemonic") ||
+          (!MnemonicRanks.includes(rank) && v.index != "Gallop")
+        }
+      />
     </div>
   );
 };

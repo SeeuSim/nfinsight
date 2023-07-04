@@ -12,6 +12,7 @@ export const getHomeColumns: ({
 }: GetHomeColumnProps) => ColumnDef<RankResultType>[] = ({ displayValue }) => [
   {
     id: "index",
+    header: ({ column }) => null,
     cell: ({ row }) => (
       <div className="">
         <span className="text-base font-medium">{row.index + 1}.</span>
@@ -20,6 +21,7 @@ export const getHomeColumns: ({
   },
   {
     accessorKey: "image",
+    header: ({ column }) => null,
     cell: ({ row }) => {
       const href = row.getValue("image");
       return <CollectionThumbnail src={href as string} size={64} />;
