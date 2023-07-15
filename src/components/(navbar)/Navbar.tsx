@@ -29,16 +29,18 @@ const Navbar = () => {
           <ShadowLink key={index} {...commonLink} />
         ))}
       </div>
-      <div className="hidden h-full md:inline-flex items-center">
+      <div className="inline-flex h-full items-center">
         <Searchbar className="mr-2" />
-        {navConstants.unauthenticated.map((unAuthedLink, index) => (
-          <div key={index} className={cn(unAuthedLink.background ?? "", "h-full")}>
-            <AuthLink {...unAuthedLink} />
-          </div>
-        ))}
-      </div>
-      <div className="inline-flex md:hidden space-x-2">
-        <Searchbar />
+        <div className="hidden h-full items-center md:inline-flex">
+          {navConstants.unauthenticated.map((unAuthedLink, index) => (
+            <div
+              key={index}
+              className={cn(unAuthedLink.background ?? "", "h-full")}
+            >
+              <AuthLink {...unAuthedLink} />
+            </div>
+          ))}
+        </div>
         <MobileMenu />
       </div>
     </div>

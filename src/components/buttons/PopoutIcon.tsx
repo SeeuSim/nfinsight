@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 const PopoutIcon = ({
   children,
   hoverBg,
-  className
+  className,
 }: {
   className?: string;
   children?: React.ReactNode;

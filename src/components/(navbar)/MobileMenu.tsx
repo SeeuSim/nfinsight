@@ -12,7 +12,7 @@ import { navConstants } from "./constants";
 const MobileMenu = () => {
   return (
     <Sheet>
-      <SheetTrigger className="group pr-3">
+      <SheetTrigger className="group block pr-3 md:hidden">
         <PopoutIcon hoverBg="bg-blue-700">
           <Menu className="h-6 w-6 text-slate-900 group-hover:text-slate-100" />
         </PopoutIcon>

@@ -1,7 +1,8 @@
 "use client";
 
-import { useAnimate } from "framer-motion";
 import { ChevronDown } from "lucide-react";
+import { animate, spring } from "motion";
+import { useRef } from "react";
 
 import { cn } from "@/lib/utils";
 import {
@@ -10,7 +11,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "../ui/select";
+} from "@/components/ui/select";
 
 type Option = {
   label: string;
@@ -30,31 +31,31 @@ const Selector = <T extends Option>({
   value,
   onValueChange,
   fontClassName,
-  hideOption = (v) => false,
+  hideOption = (__unused) => false,
   options,
 }: SelectorProps<T>) => {
-  const [selectTriggerRef, animateSelectTriggerRef] = useAnimate();
+  const selectTriggerRef = useRef<SVGSVGElement>(null);
 
   const transitionDown = () =>
-    animateSelectTriggerRef(
-      selectTriggerRef.current,
+    animate(
+      selectTriggerRef.current as SVGSVGElement,
       {
         rotate: 180,
-        scale: 0.9,
       },
       {
-        duration: 0.3,
+        duration: 0.5,
+        easing: spring({ velocity: 500 }),
       }
     );
   const transitionUp = () =>
-    animateSelectTriggerRef(
-      selectTriggerRef.current,
+    animate(
+      selectTriggerRef.current as SVGSVGElement,
       {
         rotate: 0,
-        scale: 1,
       },
       {
-        duration: 0.3,
+        duration: 0.5,
+        easing: spring({ velocity: 500 }),
       }
     );
 
@@ -62,15 +63,18 @@ const Selector = <T extends Option>({
     <Select value={value} onValueChange={onValueChange}>
       <SelectTrigger
         className={cn(
-          "w-min space-x-2 whitespace-nowrap border-0 text-lg ring-0 hover:bg-slate-100 hover:font-black hover:underline hover:underline-offset-[6px] focus:border-0 focus:ring-0",
+          "relative w-min space-x-2 whitespace-nowrap border-0 pr-8 text-lg ring-0 hover:bg-slate-100 hover:font-black hover:underline hover:underline-offset-[6px] focus:border-0 focus:ring-0",
           fontClassName
         )}
         onPointerDown={transitionDown}
         onPointerUp={transitionUp}
         onFocus={transitionUp} //When the user clicks elsewhere
       >
-        <SelectValue />
-        <ChevronDown ref={selectTriggerRef} className="h-5 w-5" />
+        <SelectValue className="flex-shrink-0" />
+        <ChevronDown
+          ref={selectTriggerRef}
+          className="absolute right-1.5 h-5 w-5"
+        />
       </SelectTrigger>
       <SelectContent
         className={cn(

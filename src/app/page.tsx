@@ -16,9 +16,7 @@ export default function MainPage() {
     state.duration,
     state.label,
   ]);
-  const { data, isLoading, refetch } = useQuery<
-    QueryResult<RankResultType>
-  >({
+  const { data, isLoading, refetch } = useQuery<QueryResult<RankResultType>>({
     queryKey: ["meta"],
     queryFn: async () => {
       return await fetch(`/api/meta`, {

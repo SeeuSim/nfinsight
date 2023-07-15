@@ -18,14 +18,14 @@ const CollectionThumbnail = ({ src, size }: { src: string; size: number }) => {
       }
     >
       <div className={`w-[${size}px] h-[${size}px]`}>
-          <Image
-            src={isError ? "/images/collection_fallback.webp" : src}
-            alt="Collection Artwork"
-            className={imageClass}
-            width={size}
-            height={size}
-            onError={() => setIsError(true)}
-          />
+        <Image
+          src={isError ? "/images/collection_fallback.webp" : src}
+          alt="Collection Artwork"
+          className={imageClass}
+          width={size}
+          height={size}
+          onError={() => setIsError(true)}
+        />
       </div>
     </Suspense>
   );
