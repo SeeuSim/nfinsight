@@ -22,6 +22,10 @@ export const searchCollections = async (collectionName: string) => {
   return await pool.query<ISearchResultType>(`
   SELECT image, address, name, floor
   FROM collection
-  WHERE LOWER(name) LIKE '%${collectionName.trim().toLowerCase()}%'
+  WHERE LOWER(name) LIKE '%${collectionName
+    .trim()
+    .toLowerCase()
+    .replaceAll(/\s+/g, "%")}%'
+  LIMIT 10
   `);
 };
