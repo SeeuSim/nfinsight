@@ -1,10 +1,11 @@
 import { Space_Mono } from "next/font/google";
 
 import { cn } from "@/lib/utils";
-import AuthLink from "./(navbar)/AuthLink";
-import ShadowLink from "./(navbar)/ShadowLink";
-import Logo from "./(navbar)/Logo";
-import MobileMenu from "./(navbar)/MobileMenu";
+import AuthLink from "./AuthLink";
+import Logo from "./Logo";
+import MobileMenu from "./MobileMenu";
+import ShadowLink from "./ShadowLink";
+import { navConstants } from "./constants";
 
 export const NavbarFont = Space_Mono({
   subsets: ["latin"],
@@ -23,16 +24,16 @@ const Navbar = () => {
     >
       <Logo copyText="NFInsight" />
       <div className="hidden space-x-6 md:inline-flex">
-        <ShadowLink text="Analytics" href="/analytics" />
-        <ShadowLink text="Account" href="/account" />
+        {navConstants.common.map((navLink, index) => (
+          <ShadowLink key={index} {...navLink} />
+        ))}
       </div>
       <div className="hidden h-full md:inline-flex">
-        <div className="bg-gray-300">
-          <AuthLink text="Login" href="/login" />
-        </div>
-        <div className="bg-green-300">
-          <AuthLink text="Sign Up" href="/signup" />
-        </div>
+        {navConstants.unauthenticated.map((unAuthedLink, index) => (
+          <div key={index} className={cn(unAuthedLink.background ?? "")}>
+            <AuthLink {...unAuthedLink} />
+          </div>
+        ))}
       </div>
       <div className="block md:hidden">
         <MobileMenu />

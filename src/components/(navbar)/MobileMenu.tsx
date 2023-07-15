@@ -4,8 +4,9 @@ import { Menu } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 import MobileNavLink from "./MobileNavLink";
-import { NavbarFont } from "../Navbar";
+import { NavbarFont } from "./Navbar";
 import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
+import { navConstants } from "./constants";
 
 const MobileMenu = () => {
   return (
@@ -22,11 +23,15 @@ const MobileMenu = () => {
           "flex flex-col"
         )}
       >
-        <MobileNavLink text="Home" href="/" />
-        <MobileNavLink text="Analytics" href="/analytics" />
-        <MobileNavLink text="Account" href="/account" />
+        {[{ label: "Home", href: "/" }, ...navConstants.common].map(
+          (commonLink, index) => (
+            <MobileNavLink key={index} {...commonLink} />
+          )
+        )}
         <hr className="border-[1px] border-slate-900" />
-        <MobileNavLink text="Log In" href="/login" />
+        {navConstants.unauthenticated.map((unAuthedLink, index) => (
+          <MobileNavLink key={index} {...unAuthedLink} />
+        ))}
       </SheetContent>
     </Sheet>
   );
