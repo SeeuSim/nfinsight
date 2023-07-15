@@ -25,7 +25,8 @@ export const searchCollections = async (collectionName: string) => {
   WHERE LOWER(name) LIKE '%${collectionName
     .trim()
     .toLowerCase()
-    .replaceAll(/\s+/g, "%")}%'
+    .replaceAll(/(\s+|'|")/g, "%")
+  }%'
   LIMIT 10
   `);
 };

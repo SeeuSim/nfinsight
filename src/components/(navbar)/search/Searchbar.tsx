@@ -1,28 +1,26 @@
 "use client";
 
+import { useQuery } from "@tanstack/react-query";
 import debounce from "lodash.debounce";
 import throttle from "lodash.throttle";
-import { Loader2, Search, X } from "lucide-react";
+import { Search, X } from "lucide-react";
+import { QueryResult } from "pg";
 import { useCallback, useEffect, useRef, useState } from "react";
 
+import KeyboardStyleButton from "@/components/buttons/KeyboardStyleButton";
 import PopoutIcon from "@/components/buttons/PopoutIcon";
 import {
   AlertDialog,
   AlertDialogContent,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { cn } from "@/lib/utils";
+import type { ISearchResultType } from "@/lib/database/postgres/searchClient";
 import { useSearchState } from "@/lib/state/searchState";
-import { useQuery } from "@tanstack/react-query";
-import { QueryResult } from "pg";
-import { ISearchResultType } from "@/lib/database/postgres/searchClient";
-import CollectionThumbnail from "@/components/images/CollectionThumbnail";
-import { IBM_Plex_Mono } from "next/font/google";
+import { cn } from "@/lib/utils";
 
-const font = IBM_Plex_Mono({
-  weight: ["100", "200", "300", "400", "500", "600", "700"],
-  subsets: ["latin"],
-});
+import SearchResultsDisplay from "./SearchResultsDisplay";
+
+const FUNCTION_DELAY = 300;
 
 const Searchbar = ({ className = "" }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -57,7 +55,7 @@ const Searchbar = ({ className = "" }) => {
   });
 
   const debouncedRefetch = useCallback(
-    throttle(debounce(refetch, 300), 300),
+    throttle(debounce(refetch, FUNCTION_DELAY), FUNCTION_DELAY),
     []
   );
 
@@ -78,6 +76,19 @@ const Searchbar = ({ className = "" }) => {
   useEffect(() => {
     debouncedRefetch();
   }, [searchInput, debouncedRefetch]);
+
+  const eventHandler = <T,>(
+    value: string,
+    cb?: (__param?: T) => void,
+    param?: T
+  ) => {
+    const out = (e: { preventDefault: () => void }) => {
+      e.preventDefault();
+      debouncedSetQuery(value);
+      if (cb) cb(param);
+    };
+    return out;
+  };
 
   return (
     <AlertDialog open={isOpen}>
@@ -111,91 +122,31 @@ const Searchbar = ({ className = "" }) => {
           className="h-full w-full rounded-md object-cover px-4 py-3 text-lg text-slate-900 !outline-none"
           placeholder="Search for collections"
           value={searchInput}
-          onChange={(e) => {
-            e.preventDefault();
-            debouncedSetQuery(e.target.value);
-          }}
+          onChange={(e) => eventHandler(e.target.value)(e)}
         />
         {!!searchInput && (
           <button
             className="rounded-xl border-2 border-transparent p-1 duration-300 ease-linear hover:border-b-4 hover:border-r-4 hover:border-slate-900"
-            onClick={() => {
-              debouncedSetQuery("");
-              searchRef.current?.focus();
-            }}
+            onClick={eventHandler("", searchRef.current?.focus)}
           >
             <X />
             <span className="sr-only">Reset</span>
           </button>
         )}
-        <div className="absolute right-0 -translate-y-[calc(100%+12px)] items-center font-mono !outline-none md:translate-x-[calc(100%+12px)] md:translate-y-0.5">
-          <button
+        <div className="absolute right-0 -translate-y-[calc(100%+12px)] items-center font-mono !outline-none lg:translate-x-[calc(100%+12px)] lg:translate-y-0.5">
+          <KeyboardStyleButton
             ref={escapeRef}
-            className={cn(
-              "cursor-pointer select-none px-4 py-2 font-bold",
-              "rounded-lg border-2 border-b-4 border-r-4 hover:border-2 ",
-              "border-slate-500 bg-slate-100/70 text-slate-600 hover:text-slate-600"
-            )}
-            onClick={(e) => {
-              e.preventDefault();
-              setIsOpen(false);
-              debouncedSetQuery("");
-            }}
+            onClick={eventHandler("", () => setIsOpen(false))}
           >
             Esc
-          </button>
+          </KeyboardStyleButton>
         </div>
         {!!searchInput && (
-          <div
-            className={cn(
-              "absolute top-[calc(100%+12px)] grid w-full grid-cols-1 md:grid-cols-2 flex-col place-items-center items-start gap-y-3 rounded-lg border-2 border-slate-900 bg-white px-3 py-3",
-              font.className
-            )}
-          >
-            {isLoading ? (
-              <div className="col-span-2 mx-auto inline-flex max-w-min items-center space-x-2">
-                <span>Loading</span>
-                <Loader2 className="animate-spin duration-500" />
-              </div>
-            ) : isError ? (
-              <div className="col-span-2 mx-auto max-w-min">
-                <span className="whitespace-nowrap font-medium text-red-600">
-                  An error has occurred. Please try again later.
-                </span>
-              </div>
-            ) : data?.rows?.length > 0 ? (
-              <>
-                {data?.rows.map((row, index) => (
-                  <div
-                    key={index}
-                    className="mr-auto inline-flex h-min max-w-screen-md items-center justify-between space-x-4"
-                  >
-                    <CollectionThumbnail src={row.image} size={64} />
-                    <div className="flex flex-col space-y-1">
-                      <span className="cursor-pointer font-medium hover:font-semibold">
-                        {row.name}
-                      </span>
-                      <div className="inline-flex items-center space-x-2">
-                        <span className="text-sm">Floor:</span>
-                        <span className="ml-auto flex rounded-full border-[1px] bg-slate-200 px-1.5 py-1 font-mono text-xs">
-                          {new Number(row.floor).toLocaleString("en-GB", {
-                            maximumFractionDigits: 3,
-                          })}
-                          &nbsp;ETH
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </>
-            ) : (
-              <div className="mx-auto inline-flex h-10 max-w-min items-center space-x-2 col-span-2">
-                <span className="whitespace-nowrap font-medium text-red-600">
-                  No results. Please try a different search.
-                </span>
-              </div>
-            )}
-          </div>
+          <SearchResultsDisplay
+            data={data}
+            isError={isError}
+            isLoading={isLoading}
+          />
         )}
       </AlertDialogContent>
     </AlertDialog>
