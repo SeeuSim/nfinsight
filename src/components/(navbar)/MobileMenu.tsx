@@ -1,20 +1,21 @@
 "use client";
 import { Menu } from "lucide-react";
 
+import PopoutIcon from "@/components/buttons/PopoutIcon";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
 
 import MobileNavLink from "./MobileNavLink";
 import { NavbarFont } from "./Navbar";
-import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
 import { navConstants } from "./constants";
 
 const MobileMenu = () => {
   return (
     <Sheet>
-      <SheetTrigger className="group relative pr-3">
-        <div className="rounded-md border-slate-900 p-2 duration-300 group-hover:-translate-x-[2px] group-hover:-translate-y-[2px] group-hover:border-2 group-hover:border-b-4 group-hover:border-r-4 group-hover:bg-blue-700">
+      <SheetTrigger className="group pr-3">
+        <PopoutIcon hoverBg="bg-blue-700">
           <Menu className="h-6 w-6 text-slate-900 group-hover:text-slate-100" />
-        </div>
+        </PopoutIcon>
       </SheetTrigger>
       <SheetContent
         className={cn(

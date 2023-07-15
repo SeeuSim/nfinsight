@@ -16,7 +16,7 @@ export default function MainPage() {
     state.duration,
     state.label,
   ]);
-  const { data, isFetching, isLoading, isError, refetch } = useQuery<
+  const { data, isLoading, refetch } = useQuery<
     QueryResult<RankResultType>
   >({
     queryKey: ["meta"],

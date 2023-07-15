@@ -6,6 +6,7 @@ import Logo from "./Logo";
 import MobileMenu from "./MobileMenu";
 import ShadowLink from "./ShadowLink";
 import { navConstants } from "./constants";
+import Searchbar from "./search/Searchbar";
 
 export const NavbarFont = Space_Mono({
   subsets: ["latin"],
@@ -24,18 +25,20 @@ const Navbar = () => {
     >
       <Logo copyText="NFInsight" />
       <div className="hidden space-x-6 md:inline-flex">
-        {navConstants.common.map((navLink, index) => (
-          <ShadowLink key={index} {...navLink} />
+        {navConstants.common.map((commonLink, index) => (
+          <ShadowLink key={index} {...commonLink} />
         ))}
       </div>
-      <div className="hidden h-full md:inline-flex">
+      <div className="hidden h-full md:inline-flex items-center">
+        <Searchbar className="mr-2" />
         {navConstants.unauthenticated.map((unAuthedLink, index) => (
-          <div key={index} className={cn(unAuthedLink.background ?? "")}>
+          <div key={index} className={cn(unAuthedLink.background ?? "", "h-full")}>
             <AuthLink {...unAuthedLink} />
           </div>
         ))}
       </div>
-      <div className="block md:hidden">
+      <div className="inline-flex md:hidden space-x-2">
+        <Searchbar />
         <MobileMenu />
       </div>
     </div>
