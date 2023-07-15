@@ -1,12 +1,12 @@
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 
-const AuthLink = ({ text = "", href = "" }) => {
+const AuthLink = ({ label = "", href = "" }) => {
   return (
     <Link href={href}>
       <div className="group relative h-full">
         <div className="flex h-full items-center border-l-2 border-slate-900 px-4 hover:bg-blue-700">
-          <span>{text}</span>
+          <span>{label}</span>
         </div>
         <div
           className={cn(
@@ -17,7 +17,7 @@ const AuthLink = ({ text = "", href = "" }) => {
             "group-hover:bg-blue-700 group-hover:font-bold group-hover:text-white group-hover:shadow-sm "
           )}
         >
-          <span>{text}</span>
+          <span>{label}</span>
         </div>
       </div>
     </Link>

@@ -2,7 +2,7 @@ import Link from "next/link";
 
 import { cn } from "@/lib/utils";
 
-const ShadowLink = ({ text = "", href = "#" }) => {
+const ShadowLink = ({ label = "", href = "#" }) => {
   return (
     <Link href={href}>
       <div className="group relative h-full w-full cursor-pointer text-xl">
@@ -13,7 +13,7 @@ const ShadowLink = ({ text = "", href = "#" }) => {
             "group-hover:text-blue-400 group-hover:underline"
           )}
         >
-          {text}
+          {label}
         </span>
 
         {/* Main Span*/}
@@ -23,7 +23,7 @@ const ShadowLink = ({ text = "", href = "#" }) => {
             "group-hover:-translate-x-[1px] group-hover:-translate-y-[calc(50%+15px)]"
           )}
         >
-          {text}
+          {label}
         </span>
       </div>
     </Link>

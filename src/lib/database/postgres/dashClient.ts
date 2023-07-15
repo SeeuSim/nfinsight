@@ -51,15 +51,18 @@ export const getRankTable = async ({
   const validatedLimit = limit < 0 || limit > 100 ? 10 : limit;
 
   const pool = getPool();
-  const res = await pool.query<RankResultType>(`
+  const res = await pool.query<RankResultType>(
+    `
     SELECT c.image, c.name, c.address, c.floor, r.value
     FROM ranking AS r
     INNER JOIN collection AS c
     ON r.collection = c.address
-    WHERE r.rank = '${rank}'
-    AND r.duration = '${duration}'
+    WHERE r.rank = $1
+    AND r.duration = $2
     ORDER BY r.value DESC
-    LIMIT ${validatedLimit} OFFSET ${validatedSkip}
-  `);
+    LIMIT $3 OFFSET $4
+  `,
+    [rank, duration, validatedLimit, validatedSkip]
+  );
   return res;
 };

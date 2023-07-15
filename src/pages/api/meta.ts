@@ -2,6 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 
 import { getRankTable } from "@/lib/database/postgres/dashClient";
 import { withMethods } from "@/lib/middlewares/withMethods";
+import { searchCollections } from "@/lib/database/postgres/searchClient";
 
 interface Payload {
   route: string;
@@ -34,21 +35,29 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       return res.status(422).json({ message: "Missing required parameters" });
     }
   }
-  
+
   if (params.route === "/") {
     const result = await getRankTable({
-      rank: params.queries['rank'],
-      duration: params.queries['duration']
-    })
-    if (result == undefined) {
-      return res.status(422).json({ message: "Wrong parameters"})
+      rank: params.queries["rank"],
+      duration: params.queries["duration"],
+    });
+    if (result === undefined) {
+      return res.status(422).json({ message: "Wrong parameters" });
     }
-    res.setHeader('Cache-Control', 's-maxage=3600');
+    res.setHeader("Cache-Control", "s-maxage=3600");
     return res.status(200).json({
       ...result,
-    })
+    });
+  } else if (params.route === "search") {
+    const result = await searchCollections(params.queries["name"]);
+    if (result === undefined) {
+      return res.status(422).json({ message: "Wrong parameters" });
+    }
+    res.setHeader("Cache-Control", "s-maxage=3600");
+    return res.status(200).json({
+      ...result,
+    });
   }
-
   return res.status(200).json({
     message: "Hello",
   });

@@ -2,7 +2,7 @@ import "./globals.css";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 import QueryProvider from "@/components/providers/QueryProvider";
-import Navbar from "@/components/Navbar";
+import Navbar from "@/components/(navbar)/Navbar";
 
 export const metadata = {
   title: "Create Next App",
