@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { AspectRatio } from "../ui/aspect-ratio";
 import { Suspense, useState } from "react";
 
 const CollectionThumbnail = ({ src, size }: { src: string; size: number }) => {
@@ -7,28 +6,28 @@ const CollectionThumbnail = ({ src, size }: { src: string; size: number }) => {
   const imageClass =
     "rounded-xl border-2 border-accent-foreground object-cover hover:-translate-x-[1px] hover:-translate-y-[1px] hover:border-b-4 hover:border-r-4";
   return (
-    <div className={`w-[${size}px] h-[${size}px] hidden md:block`}>
-      <Suspense
-        fallback={
-          <Image
-            src={"/images/collection_fallback.webp"}
-            width={size}
-            height={size}
-            alt="Collection Artwork"
-            className={imageClass}
-          />
-        }
-      >
+    <Suspense
+      fallback={
         <Image
-          src={isError ? "/images/collection_fallback.webp" : src}
-          alt="Collection Artwork"
+          src={"/images/collection_fallback.webp"}
           width={size}
           height={size}
+          alt="Collection Artwork"
           className={imageClass}
-          onError={() => setIsError(true)}
         />
-      </Suspense>
-    </div>
+      }
+    >
+      <div className={`w-[${size}px] h-[${size}px]`}>
+          <Image
+            src={isError ? "/images/collection_fallback.webp" : src}
+            alt="Collection Artwork"
+            className={imageClass}
+            width={size}
+            height={size}
+            onError={() => setIsError(true)}
+          />
+      </div>
+    </Suspense>
   );
 };
 

@@ -24,7 +24,7 @@ export const getHomeColumns: ({
     header: ({ column }) => null,
     cell: ({ row }) => {
       const href = row.getValue("image");
-      return <CollectionThumbnail src={href as string} size={64} />;
+      return <CollectionThumbnail src={href as string} size={80} />;
     },
   },
   {
