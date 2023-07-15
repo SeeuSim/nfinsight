@@ -1,6 +1,7 @@
 "use client";
 
 import debounce from "lodash.debounce";
+import throttle from "lodash.throttle";
 import { Search } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 
@@ -12,6 +13,9 @@ import {
 } from "@/components/ui/alert-dialog";
 import { cn } from "@/lib/utils";
 import { useSearchState } from "@/lib/state/searchState";
+import { useQuery } from "@tanstack/react-query";
+import { QueryResult } from "pg";
+import { ISearchResultType } from "@/lib/database/postgres/searchClient";
 
 const Searchbar = ({ className = "" }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -22,6 +26,33 @@ const Searchbar = ({ className = "" }) => {
   const debouncedSetQuery = useCallback(debounce(setSearchInput), []);
   const escapeRef = useRef<HTMLButtonElement>(null);
 
+  const { data, refetch, isLoading, isError } = useQuery<
+    QueryResult<ISearchResultType>
+  >({
+    queryKey: [`search`],
+    queryFn: async () => {
+      return await fetch("/api/meta", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          route: "search",
+          queries: {
+            name: searchInput,
+          },
+        }),
+      }).then((res) => res.json());
+    },
+    enabled: searchInput.length > 1,
+    retry: false,
+  });
+
+  const debouncedRefetch = useCallback(
+    throttle(debounce(refetch, 300), 300),
+    []
+  );
+
   useEffect(() => {
     // Searchbar event listener
     const down = (e: KeyboardEvent) => {
@@ -29,11 +60,16 @@ const Searchbar = ({ className = "" }) => {
         setIsOpen(true);
       } else if (e.key === "Escape") {
         setIsOpen(false);
+        debouncedSetQuery("");
       }
     };
     document.addEventListener("keydown", down);
     return () => document.removeEventListener("keydown", down);
   });
+
+  useEffect(() => {
+    debouncedRefetch();
+  }, [searchInput, debouncedRefetch]);
 
   return (
     <AlertDialog open={isOpen}>
@@ -66,7 +102,10 @@ const Searchbar = ({ className = "" }) => {
           className="h-full w-full rounded-md object-cover px-4 py-3 text-lg text-slate-900 !outline-none"
           placeholder="Search for collections"
           value={searchInput}
-          onChange={(e) => debouncedSetQuery(e.target.value)}
+          onChange={(e) => {
+            e.preventDefault();
+            debouncedSetQuery(e.target.value);
+          }}
         />
         <button
           className={cn(
@@ -89,6 +128,7 @@ const Searchbar = ({ className = "" }) => {
             onClick={(e) => {
               e.preventDefault();
               setIsOpen(false);
+              debouncedSetQuery("");
             }}
           >
             Esc

@@ -13,6 +13,7 @@ specifiers:
   '@tanstack/react-table': ^8.9.3
   '@types/cors': ^2.8.13
   '@types/lodash.debounce': ^4.0.7
+  '@types/lodash.throttle': ^4.1.7
   '@types/node': 20.1.0
   '@types/pg': ^8.10.2
   '@types/react': 18.2.6
@@ -25,6 +26,7 @@ specifiers:
   eslint: 8.40.0
   eslint-config-next: 13.4.1
   lodash.debounce: ^4.0.8
+  lodash.throttle: ^4.1.1
   lucide-react: ^0.256.0
   motion: ^10.16.2
   next: 13.4.1
@@ -63,6 +65,7 @@ dependencies:
   eslint: 8.40.0
   eslint-config-next: 13.4.1_3qfatcekpgbllh6uk5ivyhkbxq
   lodash.debounce: 4.0.8
+  lodash.throttle: 4.1.1
   lucide-react: 0.256.0_react@18.2.0
   motion: 10.16.2
   next: 13.4.1_biqbaboplfbrettd7655fr4n2y
@@ -80,6 +83,7 @@ dependencies:
 devDependencies:
   '@types/cors': 2.8.13
   '@types/lodash.debounce': 4.0.7
+  '@types/lodash.throttle': 4.1.7
   '@types/pg': 8.10.2
   prettier: 2.8.8
   prettier-plugin-tailwindcss: 0.2.8_prettier@2.8.8
@@ -1272,6 +1276,12 @@ packages:
 
   /@types/lodash.debounce/4.0.7:
     resolution: {integrity: sha512-X1T4wMZ+gT000M2/91SYj0d/7JfeNZ9PeeOldSNoE/lunLeQXKvkmIumI29IaKMotU/ln/McOIvgzZcQ/3TrSA==}
+    dependencies:
+      '@types/lodash': 4.14.195
+    dev: true
+
+  /@types/lodash.throttle/4.1.7:
+    resolution: {integrity: sha512-znwGDpjCHQ4FpLLx19w4OXDqq8+OvREa05H89obtSyXyOFKL3dDjCslsmfBz0T2FU8dmf5Wx1QvogbINiGIu9g==}
     dependencies:
       '@types/lodash': 4.14.195
     dev: true
@@ -2949,6 +2959,10 @@ packages:
 
   /lodash.merge/4.6.2:
     resolution: {integrity: sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==}
+    dev: false
+
+  /lodash.throttle/4.1.1:
+    resolution: {integrity: sha512-wIkUCfVKpVsWo3JSZlc+8MB5it+2AN5W8J7YVMST30UrvcQNZ1Okbj+rbVniijTWE6FGYy4XJq/rHkas8qJMLQ==}
     dev: false
 
   /long/4.0.0:
