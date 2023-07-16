@@ -54,7 +54,7 @@ const Searchbar = ({ className = "" }) => {
     retry: false,
   });
 
-  const debouncedRefetch = useCallback(
+  const throttledRefetch = useCallback(
     throttle(debounce(refetch, FUNCTION_DELAY), FUNCTION_DELAY),
     []
   );
@@ -74,8 +74,8 @@ const Searchbar = ({ className = "" }) => {
   });
 
   useEffect(() => {
-    debouncedRefetch();
-  }, [searchInput, debouncedRefetch]);
+    throttledRefetch();
+  }, [searchInput, throttledRefetch]);
 
   const inputClear = () => {
     if (searchRef.current) {

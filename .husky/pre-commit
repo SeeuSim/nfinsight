@@ -1,19 +1,12 @@
 #!/usr/bin/env sh
-# . "$(dirname -- "$0")/_/husky.sh
-export PACKAGE_MANAGER="npm"
+. "$(dirname -- "$0")/_/husky.sh"
 
-if command -v yarn &> /dev/null
+if !command -v pnpm &> /dev/null
 then
-    PACKAGE_MANAGER="yarn"
-fi
-
-if command -v pnpm &> /dev/null
-then
-    PACKAGE_MANAGER="pnpm"
+    echo "Wanna switch to pnpm?"
+    exit
 fi
 
 #1. Format the code
-$PACKAGE_MANAGER fmt
+npx lint-staged
 
-#2. Lint
-$PACKAGE_MANAGER lint --fix

@@ -55,7 +55,16 @@
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "eslint-config-prettier": "^8.8.0",
     "husky": "^8.0.0",
+    "lint-staged": "^13.2.3",
     "prettier": "^2.8.8",
     "prettier-plugin-tailwindcss": "^0.2.8"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "cross-env FORCE_COLOR=1 lint-staged"
+    }
+  },
+  "lint-staged": {
+    "**/*.{ts,tsx}": ["eslint --fix **/*.{ts,tsx}", "prettier --write --config ./.prettierrc.js **/*.tsx"]
   }
 }
