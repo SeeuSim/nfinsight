@@ -16,4 +16,4 @@ fi
 $PACKAGE_MANAGER fmt
 
 #2. Lint
-
+$PACKAGE_MANAGER lint --fix

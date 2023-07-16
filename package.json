@@ -52,8 +52,10 @@
     "@types/lodash.debounce": "^4.0.7",
     "@types/lodash.throttle": "^4.1.7",
     "@types/pg": "^8.10.2",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "eslint-config-prettier": "^8.8.0",
+    "husky": "^8.0.0",
     "prettier": "^2.8.8",
-    "prettier-plugin-tailwindcss": "^0.2.8",
-    "husky": "^8.0.0"
+    "prettier-plugin-tailwindcss": "^0.2.8"
   }
 }

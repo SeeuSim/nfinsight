@@ -30,7 +30,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (queryRouter[params.route] == undefined) {
     return res.status(404).json({ message: "That API is not supported yet" });
   }
-  for (let requiredQueryParam of queryRouter[params.route]) {
+  for (const requiredQueryParam of queryRouter[params.route]) {
     if (params.queries[requiredQueryParam] == undefined) {
       return res.status(422).json({ message: "Missing required parameters" });
     }
