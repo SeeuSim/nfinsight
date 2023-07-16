@@ -14,7 +14,7 @@ import {
   AlertDialogContent,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import type { ISearchResultType } from "@/lib/database/postgres/searchClient";
+import type { ISearchResultType } from "@/lib/database/postgres/searchCollections";
 import { useSearchQueryState } from "@/lib/state/searchState";
 import { cn } from "@/lib/utils";
 

@@ -1,16 +1,18 @@
 import { ColumnDef } from "@tanstack/react-table";
 import Link from "next/link";
 
-import type { RankResultType } from "@/lib/database/postgres/dashClient";
+import type { IRankResultType } from "@/lib/database/postgres/getRankedCollections";
 import CollectionThumbnail from "@/components/images/CollectionThumbnail";
 
-interface GetHomeColumnProps {
+interface IGetHomeColumnProps {
   displayValue: string;
 }
 
 export const getHomeColumns: ({
   displayValue,
-}: GetHomeColumnProps) => ColumnDef<RankResultType>[] = ({ displayValue }) => [
+}: IGetHomeColumnProps) => ColumnDef<IRankResultType>[] = ({
+  displayValue,
+}) => [
   {
     id: "index",
     header: ({ column }) => null,

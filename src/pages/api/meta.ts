@@ -1,10 +1,11 @@
 import { NextApiRequest, NextApiResponse } from "next";
 
-import { getRankTable } from "@/lib/database/postgres/dashClient";
 import { withMethods } from "@/lib/middlewares/withMethods";
-import { searchCollections } from "@/lib/database/postgres/searchClient";
+import { getRankedCollections } from "@/lib/database/postgres/getRankedCollections";
+import { getCollectionMetadata } from "@/lib/database/postgres/getCollectionMetadata";
+import { searchCollections } from "@/lib/database/postgres/searchCollections";
 
-interface Payload {
+interface IPayload {
   route: string;
   queries: {
     [key: string]: string;
@@ -16,10 +17,11 @@ const queryRouter: {
 } = {
   "/": ["rank", "duration"],
   search: ["name"],
+  collection: ["address"],
 };
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-  const params: Payload = req.body;
+  const params: IPayload = req.body;
 
   //Check for missing parameters
   if (params["route"] == undefined || params["queries"] == undefined) {
@@ -35,31 +37,23 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       return res.status(422).json({ message: "Missing required parameters" });
     }
   }
-
+  let result;
   if (params.route === "/") {
-    const result = await getRankTable({
+    result = await getRankedCollections({
       rank: params.queries["rank"],
       duration: params.queries["duration"],
     });
-    if (result === undefined) {
-      return res.status(422).json({ message: "Wrong parameters" });
-    }
-    res.setHeader("Cache-Control", "s-maxage=3600");
-    return res.status(200).json({
-      ...result,
-    });
   } else if (params.route === "search") {
-    const result = await searchCollections(params.queries["name"]);
-    if (result === undefined) {
-      return res.status(422).json({ message: "Wrong parameters" });
-    }
-    res.setHeader("Cache-Control", "s-maxage=3600");
-    return res.status(200).json({
-      ...result,
-    });
+    result = await searchCollections(params.queries["name"]);
+  } else if (params.route === "collection") {
+    result = await getCollectionMetadata(params.queries["address"]);
   }
+  if (result === undefined) {
+    return res.status(422).json({ message: "Wrong parameters" });
+  }
+  res.setHeader("Cache-Control", "s-maxage=3600");
   return res.status(200).json({
-    message: "Hello",
+    ...result,
   });
 };
 

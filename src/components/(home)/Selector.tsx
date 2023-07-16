@@ -19,7 +19,7 @@ type Option = {
   index?: string;
 };
 
-interface SelectorProps<T> {
+interface ISelectorProps<T> {
   value: string;
   onValueChange: (value: string) => void;
   fontClassName?: string;
@@ -33,7 +33,7 @@ const Selector = <T extends Option>({
   fontClassName,
   hideOption = (__unused) => false,
   options,
-}: SelectorProps<T>) => {
+}: ISelectorProps<T>) => {
   const selectTriggerRef = useRef<SVGSVGElement>(null);
 
   const transitionDown = () =>

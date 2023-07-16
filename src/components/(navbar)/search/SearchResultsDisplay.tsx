@@ -3,7 +3,7 @@ import { IBM_Plex_Mono } from "next/font/google";
 import { QueryResult } from "pg";
 
 import CollectionThumbnail from "@/components/images/CollectionThumbnail";
-import { ISearchResultType } from "@/lib/database/postgres/searchClient";
+import { ISearchResultType } from "@/lib/database/postgres/searchCollections";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { MouseEventHandler } from "react";

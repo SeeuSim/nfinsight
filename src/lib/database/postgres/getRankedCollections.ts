@@ -19,7 +19,7 @@ const gallopDurations = [
   "ninety_days",
 ];
 
-export interface RankResultType {
+export interface IRankResultType {
   image: string;
   name: string;
   floor: string;
@@ -27,7 +27,7 @@ export interface RankResultType {
   value: string;
 }
 
-export const getRankTable = async ({
+export const getRankedCollections = async ({
   rank,
   duration,
   limit = 100,
@@ -51,7 +51,7 @@ export const getRankTable = async ({
   const validatedLimit = limit < 0 || limit > 100 ? 10 : limit;
 
   const pool = getPool();
-  const res = await pool.query<RankResultType>(
+  const res = await pool.query<IRankResultType>(
     `
     SELECT c.image, c.name, c.address, c.floor, r.value
     FROM ranking AS r
