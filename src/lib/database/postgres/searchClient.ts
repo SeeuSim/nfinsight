@@ -19,14 +19,13 @@ export const searchCollections = async (collectionName: string) => {
   // WHERE to_tsvector('english', name) @@ to_tsquery('english', ${collectionName})
   // `
 
-  return await pool.query<ISearchResultType>(`
+  return await pool.query<ISearchResultType>(
+    `
   SELECT image, address, name, floor
   FROM collection
-  WHERE LOWER(name) LIKE '%${collectionName
-    .trim()
-    .toLowerCase()
-    .replaceAll(/(\s+|'|")/g, "%")
-  }%'
+  WHERE LOWER(name) LIKE $1
   LIMIT 10
-  `);
+  `,
+    [`%${collectionName.trim().toLowerCase().replaceAll(/\s+/g, "%")}%`]
+  );
 };

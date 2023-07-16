@@ -77,6 +77,13 @@ const Searchbar = ({ className = "" }) => {
     debouncedRefetch();
   }, [searchInput, debouncedRefetch]);
 
+  const inputClear = () => {
+    if (searchRef.current) {
+      searchRef.current.value = "";
+    }
+    searchRef.current?.focus();
+  };
+
   const eventHandler = <T,>(
     value: string,
     cb?: (__param?: T) => void,
@@ -121,13 +128,12 @@ const Searchbar = ({ className = "" }) => {
           ref={searchRef}
           className="h-full w-full rounded-md object-cover px-4 py-3 text-lg text-slate-900 !outline-none"
           placeholder="Search for collections"
-          value={searchInput}
           onChange={(e) => eventHandler(e.target.value)(e)}
         />
         {!!searchInput && (
           <button
             className="rounded-xl border-2 border-transparent p-1 duration-300 ease-linear hover:border-b-4 hover:border-r-4 hover:border-slate-900"
-            onClick={eventHandler("", searchRef.current?.focus)}
+            onClick={eventHandler("", inputClear)}
           >
             <X />
             <span className="sr-only">Reset</span>
