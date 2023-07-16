@@ -8,6 +8,12 @@ import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { MouseEventHandler } from "react";
 
+interface ISearchSubComponentProps {
+  // Tried using Zustand instead of prop drilling, but it doesn't work
+  // Maybe the callback reference needs to be in the parent?
+  closeSearchbarCallback: MouseEventHandler<HTMLAnchorElement>;
+}
+
 const font = IBM_Plex_Mono({
   weight: ["100", "200", "300", "400", "500", "600", "700"],
   subsets: ["latin"],
@@ -18,8 +24,7 @@ const SearchResultsRow = ({
   closeSearchbarCallback,
 }: {
   row: ISearchResultType;
-  closeSearchbarCallback: MouseEventHandler<HTMLAnchorElement>;
-}) => {
+} & ISearchSubComponentProps) => {
   return (
     <div className="mr-auto inline-flex h-min w-full max-w-screen-md items-center justify-between space-x-4">
       <div className="h-16 w-16 flex-shrink-0 overflow-clip rounded-md">
@@ -54,11 +59,10 @@ const SearchResultsDisplay = ({
   isError,
   data,
 }: {
-  closeSearchbarCallback: MouseEventHandler<HTMLAnchorElement>;
   isLoading: boolean;
   isError: boolean;
   data?: QueryResult<ISearchResultType>;
-}) => (
+} & ISearchSubComponentProps) => (
   <div
     className={cn(
       "absolute top-[calc(100%+12px)] grid w-full grid-cols-1 flex-col place-items-center items-start gap-y-3 rounded-lg border-2 border-slate-900 bg-white px-3 py-3 md:grid-cols-2",
