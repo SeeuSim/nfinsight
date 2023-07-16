@@ -84,7 +84,7 @@ const Searchbar = ({ className = "" }) => {
     searchRef.current?.focus();
   };
 
-  const eventHandler = <T,>(
+  const searchEventHandler = <T,>(
     value: string,
     cb?: (__param?: T) => void,
     param?: T
@@ -128,12 +128,12 @@ const Searchbar = ({ className = "" }) => {
           ref={searchRef}
           className="h-full w-full rounded-md object-cover px-4 py-3 text-lg text-slate-900 !outline-none"
           placeholder="Search for collections"
-          onChange={(e) => eventHandler(e.target.value)(e)}
+          onChange={(e) => searchEventHandler(e.target.value)(e)}
         />
         {!!searchInput && (
           <button
             className="rounded-xl border-2 border-transparent p-1 duration-300 ease-linear hover:border-b-4 hover:border-r-4 hover:border-slate-900"
-            onClick={eventHandler("", inputClear)}
+            onClick={searchEventHandler("", inputClear)}
           >
             <X />
             <span className="sr-only">Reset</span>
@@ -142,7 +142,7 @@ const Searchbar = ({ className = "" }) => {
         <div className="absolute right-0 -translate-y-[calc(100%+12px)] items-center font-mono !outline-none lg:translate-x-[calc(100%+12px)] lg:translate-y-0.5">
           <KeyboardStyleButton
             ref={escapeRef}
-            onClick={eventHandler("", () => setIsOpen(false))}
+            onClick={searchEventHandler("", () => setIsOpen(false))}
           >
             Esc
           </KeyboardStyleButton>

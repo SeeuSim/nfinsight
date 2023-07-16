@@ -22,4 +22,4 @@ const PopoutIcon = ({
   );
 };
 
-export default PopoutIcon
+export default PopoutIcon;

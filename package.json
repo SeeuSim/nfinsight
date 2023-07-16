@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "fmt": "prettier --write --config ./.prettierrc.js **/*.tsx",
-    "lint": "next lint"
+    "lint": "next lint",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@grpc/grpc-js": "^1.8.17",
@@ -52,6 +53,7 @@
     "@types/lodash.throttle": "^4.1.7",
     "@types/pg": "^8.10.2",
     "prettier": "^2.8.8",
-    "prettier-plugin-tailwindcss": "^0.2.8"
+    "prettier-plugin-tailwindcss": "^0.2.8",
+    "husky": "^8.0.0"
   }
 }

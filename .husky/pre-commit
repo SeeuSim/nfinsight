@@ -1,0 +1,19 @@
+#!/usr/bin/env sh
+# . "$(dirname -- "$0")/_/husky.sh
+export PACKAGE_MANAGER="npm"
+
+if command -v yarn &> /dev/null
+then
+    PACKAGE_MANAGER="yarn"
+fi
+
+if command -v pnpm &> /dev/null
+then
+    PACKAGE_MANAGER="pnpm"
+fi
+
+#1. Format the code
+$PACKAGE_MANAGER fmt
+
+#2. Lint
+
