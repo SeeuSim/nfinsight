@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "fmt": "prettier --write --config ./.prettierrc.js **/*.tsx",
-    "lint": "next lint"
+    "lint": "next lint",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@grpc/grpc-js": "^1.8.17",
@@ -51,7 +52,19 @@
     "@types/lodash.debounce": "^4.0.7",
     "@types/lodash.throttle": "^4.1.7",
     "@types/pg": "^8.10.2",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "eslint-config-prettier": "^8.8.0",
+    "husky": "^8.0.0",
+    "lint-staged": "^13.2.3",
     "prettier": "^2.8.8",
     "prettier-plugin-tailwindcss": "^0.2.8"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "cross-env FORCE_COLOR=1 lint-staged"
+    }
+  },
+  "lint-staged": {
+    "**/*.{ts,tsx}": ["eslint --fix **/*.{ts,tsx}", "prettier --write --config ./.prettierrc.js **/*.tsx"]
   }
 }

@@ -1,0 +1,12 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+if !command -v pnpm &> /dev/null
+then
+    echo "Wanna switch to pnpm?"
+    exit
+fi
+
+#1. Format the code
+npx lint-staged
+
