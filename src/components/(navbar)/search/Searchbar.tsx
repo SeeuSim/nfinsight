@@ -15,7 +15,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import type { ISearchResultType } from "@/lib/database/postgres/searchClient";
-import { useSearchState } from "@/lib/state/searchState";
+import { useSearchQueryState } from "@/lib/state/searchState";
 import { cn } from "@/lib/utils";
 
 import SearchResultsDisplay from "./SearchResultsDisplay";
@@ -24,7 +24,7 @@ const FUNCTION_DELAY = 300;
 
 const Searchbar = ({ className = "" }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [searchInput, setSearchInput] = useSearchState((state) => [
+  const [searchInput, setSearchInput] = useSearchQueryState((state) => [
     state.searchValue,
     state.setSearchValue,
   ]);
@@ -152,6 +152,10 @@ const Searchbar = ({ className = "" }) => {
             data={data}
             isError={isError}
             isLoading={isLoading}
+            closeSearchbarCallback={() => {
+              debouncedSetQuery("");
+              setIsOpen(false);
+            }}
           />
         )}
       </AlertDialogContent>

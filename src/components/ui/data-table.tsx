@@ -4,6 +4,7 @@ import { Space_Grotesk } from "next/font/google";
 
 import {
   ColumnDef,
+  VisibilityState,
   flexRender,
   getCoreRowModel,
   getPaginationRowModel,
@@ -19,10 +20,9 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import { cn } from "@/lib/utils";
 import { Skeleton } from "./skeleton";
 import DataTablePagination from "./data-table/data-table-pagination";
+import { useState } from "react";
 
 const font = Space_Grotesk({
   subsets: ["latin"],
@@ -39,11 +39,22 @@ export function DataTable<TData, TValue>({
   data,
   loading,
 }: DataTableProps<TData, TValue>) {
+  //Hide columns initially
+  const [columnVisibility] = useState<VisibilityState>(
+    Object.fromEntries(
+      (columns as { accessorKey: string; show?: boolean }[])
+        .filter((col) => col.show !== undefined && col.show === false)
+        .map((col) => [col.accessorKey, col.show as boolean])
+    )
+  );
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
+    initialState: {
+      columnVisibility: columnVisibility,
+    },
   });
 
   return (
