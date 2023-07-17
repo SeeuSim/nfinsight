@@ -5,7 +5,7 @@ import { getRankedCollections } from "@/lib/database/postgres/getRankedCollectio
 import { getCollectionMetadata } from "@/lib/database/postgres/getCollectionMetadata";
 import { searchCollections } from "@/lib/database/postgres/searchCollections";
 
-interface IPayload {
+interface IMetaPayload {
   route: string;
   queries: {
     [key: string]: string;
@@ -21,7 +21,7 @@ const queryRouter: {
 };
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-  const params: IPayload = req.body;
+  const params: IMetaPayload = req.body;
 
   //Check for missing parameters
   if (params["route"] == undefined || params["queries"] == undefined) {
