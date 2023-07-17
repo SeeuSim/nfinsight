@@ -9,6 +9,7 @@ import { Space_Grotesk } from "next/font/google";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { Globe } from "lucide-react";
+import Image from "next/image";
 
 const font = Space_Grotesk({
   subsets: ["latin"],
@@ -83,13 +84,26 @@ const CollectionDetails = ({ collectionAddress }: ICollectionDetailsProps) => {
               "lg:col-span-3"
             )}
           >
-            <div className="inline-flex items-center space-x-10">
+            <div className="inline-flex items-center space-x-6 mobp:space-x-10 sm:space-x-24">
               <span className="text-xl font-bold mob:text-2xl mobp:text-3xl sm:text-4xl">
                 {data.name}
               </span>
-              <Link href={data.external_url ?? "#"}>
-                <Globe className="h-6 w-6 text-slate-900 duration-300 ease-in-out hover:scale-110 hover:text-blue-800" />
-              </Link>
+              <div className="inline-flex space-x-1 rounded-sm border-2 border-slate-900 p-0.5 sm:space-x-3 sm:p-2">
+                <Link href={data.external_url ?? "#"}>
+                  <Globe className="h-6 w-6 text-slate-900 duration-300 ease-in-out hover:scale-110 hover:text-blue-800" />
+                </Link>
+                <Link
+                  href={`https://etherscan.io/address/${collectionAddress}`}
+                >
+                  <Image
+                    className="shrink-0 text-slate-900 duration-300 ease-in-out hover:scale-110 hover:text-blue-800"
+                    alt="Etherscan"
+                    src={"/images/etherscan-logo-circle.svg"}
+                    height={24}
+                    width={24}
+                  />
+                </Link>
+              </div>
             </div>
             <div className="">
               <ReactMarkdown
