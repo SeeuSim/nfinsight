@@ -4,14 +4,14 @@ export const Metrics = ["prices", "owners", "sales", "tokens"] as const;
 
 export const MetricSet = new Set(Metrics);
 
-type MetricsMap = {
-  [k in (typeof Metrics)[number]]: Array<IField>;
-};
-
 interface IField {
   key: string;
   type: "decimal" | "bigint";
 }
+
+type MetricsMap = {
+  [k in (typeof Metrics)[number]]: Array<IField>;
+};
 
 export interface IGetDataPointParams {
   metric: (typeof Metrics)[number];
@@ -24,6 +24,10 @@ export interface ITimeSeriesPoint {
   values: {
     [key: string]: number;
   };
+}
+
+export interface ITimeSeriesResult {
+  rows: ITimeSeriesPoint[];
 }
 
 export const ALLOWED_METRICS: MetricsMap = {
@@ -45,6 +49,16 @@ export const ALLOWED_METRICS: MetricsMap = {
   ],
 };
 
+export const getQueryValue = (v: string | number, t: "str" | "int") => {
+  const out = new Value();
+  if (t === "str") {
+    out.setString(v as string);
+  } else {
+    out.setInt(v as number);
+  }
+  return out;
+};
+
 export const fmtDecimal = (v?: Value) => {
   if (v === undefined) {
     return 0;
@@ -59,16 +73,6 @@ export const fmtDecimal = (v?: Value) => {
       16
     ) / Math.pow(10, out.scale)
   );
-};
-
-export const getValue = (v: string | number, t: "str" | "int") => {
-  const out = new Value();
-  if (t === "str") {
-    out.setString(v as string);
-  } else {
-    out.setInt(v as number);
-  }
-  return out;
 };
 
 export const getFieldValue = {

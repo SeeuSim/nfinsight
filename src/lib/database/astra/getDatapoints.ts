@@ -4,9 +4,8 @@ import {
   ALLOWED_METRICS,
   IGetDataPointParams,
   ITimeSeriesPoint,
-  fmtDecimal,
   getFieldValue,
-  getValue,
+  getQueryValue,
 } from "./utils";
 
 export const getDataPoints = async ({
@@ -25,8 +24,8 @@ export const getDataPoints = async ({
   `);
 
   const queryValuesList = [
-    getValue(props.collectionAddress, "str"),
-    getValue(limit, "int"),
+    getQueryValue(props.collectionAddress, "str"),
+    getQueryValue(limit, "int"),
   ];
 
   const queryValues = new Values();
@@ -51,5 +50,7 @@ export const getDataPoints = async ({
       }
       return out;
     });
-  return rows;
+  return {
+    rows: rows,
+  };
 };

@@ -3,7 +3,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import type { QueryResult } from "pg";
-import { ITimeSeriesPoint } from "@/lib/database/astra/utils";
+import type { ITimeSeriesResult } from "@/lib/database/astra/utils";
 import type { ICollectionMetaResult } from "@/lib/database/postgres/getCollectionMetadata";
 
 const CollectionDetailsPage = ({
@@ -34,7 +34,7 @@ const CollectionDetailsPage = ({
     },
   });
 
-  const dataPoints = useQuery<ITimeSeriesPoint[], Error>({
+  const dataPoints = useQuery<ITimeSeriesResult>({
     queryKey: [`collections/data/${params.collectionAddress}`],
     queryFn: async () => {
       return await fetch(`/api/data`, {
@@ -43,7 +43,7 @@ const CollectionDetailsPage = ({
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          metric: "prices",
+          metric: "tokens",
           collectionAddress: params.collectionAddress,
         }),
       }).then((res) => res.json());
@@ -56,7 +56,11 @@ const CollectionDetailsPage = ({
         {params.collectionAddress}
       </span>
       {dataPoints.data !== undefined && (
-        <pre>{JSON.stringify(dataPoints.data ?? [])}</pre>
+        <>
+          {dataPoints.data.rows.map((v, idx) => (
+            <pre key={idx}>{JSON.stringify(v)}</pre>
+          ))}
+        </>
       )}
     </div>
   );
