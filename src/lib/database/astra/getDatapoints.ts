@@ -1,7 +1,7 @@
 import { Query, Values } from "@stargate-oss/stargate-grpc-node-client";
 import { getAstraClient } from "../astra";
+import { ALLOWED_METRICS } from "../types";
 import {
-  ALLOWED_METRICS,
   IGetDataPointParams,
   ITimeSeriesPoint,
   getFieldValue,

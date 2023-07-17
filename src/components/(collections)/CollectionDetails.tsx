@@ -1,16 +1,16 @@
 import { useQuery } from "@tanstack/react-query";
+import { ChevronDown, ChevronUp, Globe } from "lucide-react";
+import { Space_Grotesk } from "next/font/google";
+import Image from "next/image";
+import { useState } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
 import CollectionArtwork from "@/components/images/CollectionArtwork";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { ICollectionMetaResult } from "@/lib/database/postgres/getCollectionMetadata";
-import { Space_Grotesk } from "next/font/google";
 import { cn } from "@/lib/utils";
-import Link from "next/link";
-import { Globe } from "lucide-react";
-import Image from "next/image";
-import { Tooltip, TooltipTrigger } from "../ui/tooltip";
+
 import CollectionExternalLink from "./CollectionExternalLink";
 
 const font = Space_Grotesk({
@@ -22,6 +22,7 @@ interface ICollectionDetailsProps {
 }
 
 const CollectionDetails = ({ collectionAddress }: ICollectionDetailsProps) => {
+  const [hide, setHide] = useState(true);
   const { data, isLoading, isFetching, isError, error } = useQuery<
     ICollectionMetaResult,
     Error
@@ -68,7 +69,7 @@ const CollectionDetails = ({ collectionAddress }: ICollectionDetailsProps) => {
               />
             </AspectRatio>
           </div>
-          <div className="absolute left-4 top-full z-50 w-[128px] -translate-y-[80%] overflow-clip rounded-2xl border-4 border-gray-400 bg-gradient-to-tr from-fuchsia-200 to-blue-200 shadow-md sm:left-8 sm:w-[200px]">
+          <div className="absolute left-4 top-full w-[128px] -translate-y-[80%] overflow-clip rounded-2xl border-4 border-gray-400 bg-gradient-to-tr from-fuchsia-200 to-blue-200 shadow-md sm:left-8 sm:w-[200px]">
             <AspectRatio ratio={1}>
               <CollectionArtwork src={data.image} alt="Collection Artwork" />
             </AspectRatio>
@@ -113,11 +114,27 @@ const CollectionDetails = ({ collectionAddress }: ICollectionDetailsProps) => {
             </div>
             <div className="">
               <ReactMarkdown
-                className="prose prose-rose text-sm prose-h1:font-black prose-a:text-blue-600 sm:text-base sm:prose-a:font-light md:text-lg"
+                className={cn(
+                  "prose prose-rose text-sm prose-h1:font-black prose-a:text-blue-600 sm:text-base sm:prose-a:font-light md:text-lg",
+                  hide
+                    ? "prose-p:w-[90vw] prose-p:truncate md:prose-p:w-full lg:prose-p:overflow-visible lg:prose-p:whitespace-pre-wrap"
+                    : ""
+                )}
                 remarkPlugins={[remarkGfm]}
               >
                 {data.description}
               </ReactMarkdown>
+              <button
+                className="inline-flex w-20 items-center justify-between space-x-2 font-medium text-violet-600 lg:hidden"
+                onClick={() => setHide(!hide)}
+              >
+                {hide ? <span>Expand</span> : <span>Hide</span>}
+                {hide ? (
+                  <ChevronDown className="h-5 w-5" />
+                ) : (
+                  <ChevronUp className="h-5 w-5" />
+                )}
+              </button>
             </div>
           </div>
           <div className="flex h-[min-content] w-full flex-col rounded-md border-2 border-slate-900 px-4 py-2 mobp:max-w-[80%] lg:col-span-1 lg:max-w-full">

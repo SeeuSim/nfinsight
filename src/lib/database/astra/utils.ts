@@ -1,17 +1,6 @@
 import { Value } from "@stargate-oss/stargate-grpc-node-client";
 
-export const Metrics = ["prices", "owners", "sales", "tokens"] as const;
-
-export const MetricSet = new Set(Metrics);
-
-interface IField {
-  key: string;
-  type: "decimal" | "bigint";
-}
-
-type MetricsMap = {
-  [k in (typeof Metrics)[number]]: Array<IField>;
-};
+import { Metrics } from "../types";
 
 export interface IGetDataPointParams {
   metric: (typeof Metrics)[number];
@@ -29,25 +18,6 @@ export interface ITimeSeriesPoint {
 export interface ITimeSeriesResult {
   rows: ITimeSeriesPoint[];
 }
-
-export const ALLOWED_METRICS: MetricsMap = {
-  prices: [
-    { key: "average_price", type: "decimal" },
-    { key: "max_price", type: "decimal" },
-    { key: "min_price", type: "decimal" },
-  ],
-  owners: [{ key: "owners_count", type: "bigint" }],
-  sales: [
-    { key: "sales_count", type: "bigint" },
-    { key: "sales_volume", type: "decimal" },
-  ],
-  tokens: [
-    { key: "tokens_burned", type: "bigint" },
-    { key: "tokens_minted", type: "bigint" },
-    { key: "total_burned", type: "bigint" },
-    { key: "total_minted", type: "bigint" },
-  ],
-};
 
 export const getQueryValue = (v: string | number, t: "str" | "int") => {
   const out = new Value();

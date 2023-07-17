@@ -2,8 +2,8 @@
 
 import { useRouter } from "next/navigation";
 
-import CollectionDetails from "@/components/collections/CollectionDetails";
-import CollectionData from "@/components/collections/CollectionData";
+import CollectionDetails from "@/components/(collections)/CollectionDetails";
+import CollectionData from "@/components/(collections)/CollectionData";
 import MainLayout from "@/components/layouts/MainLayout";
 
 const CollectionDetailsPage = ({

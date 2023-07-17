@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { getDataPoints } from "@/lib/database/astra/getDatapoints";
-import { type Metrics, MetricSet } from "@/lib/database/astra/utils";
+import { type Metrics, MetricSet } from "@/lib/database/types";
 import { withMethods } from "@/lib/middlewares/withMethods";
 
 interface IDataPayload {
