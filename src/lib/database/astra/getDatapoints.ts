@@ -52,6 +52,6 @@ export const getDataPoints = async ({
       return out;
     });
   return {
-    rows: rows,
+    rows: rows?.reverse(),
   };
 };
