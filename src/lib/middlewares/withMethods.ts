@@ -1,7 +1,11 @@
 import Cors from "cors";
 import type { NextApiHandler, NextApiRequest, NextApiResponse } from "next";
 
-const corsAllowedOrigins = ["http://localhost:3000", "http://192.168.1.8:3000"];
+let corsAllowedOrigins = ["http://localhost:3000", "http://192.168.1.8:3000"];
+
+if (process.env.VERCEL_URL) {
+  corsAllowedOrigins = [process.env.VERCEL_URL];
+}
 
 function runMiddleware(
   req: NextApiRequest,
