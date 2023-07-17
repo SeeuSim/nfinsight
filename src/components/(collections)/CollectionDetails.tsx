@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { ChevronDown, ChevronUp, Globe } from "lucide-react";
+import { ChevronDown, ChevronUp, Copy, Globe } from "lucide-react";
 import { Space_Grotesk } from "next/font/google";
 import Image from "next/image";
 import { useState } from "react";
@@ -46,16 +46,36 @@ const CollectionDetails = ({ collectionAddress }: ICollectionDetailsProps) => {
 
   return isLoading || isFetching ? (
     <>
-      <div>
-        <span>Loading</span>
+      <div className="flex flex-col">
+        <div className="relative mb-8 sm:mb-12">
+          <div className="h-[300px] w-full animate-pulse rounded-md bg-accent " />
+          <div className="absolute left-4 top-full h-32 w-32 -translate-y-[80%] animate-pulse rounded-md bg-slate-200 sm:left-8 sm:h-[200px] sm:w-[200px]" />
+        </div>
+        <div className="p-4 sm:px-8 lg:grid lg:grid-cols-4 lg:gap-4">
+          <div className="col-span-3">
+            <div className="flex flex-row items-center space-x-10 sm:space-x-24">
+              <div className="h-10 w-48 animate-pulse rounded-full bg-accent" />
+              <div className="h-10 w-16 animate-pulse rounded-xl bg-accent" />
+            </div>
+            <div className="mt-4 h-6 w-[50vw] animate-pulse rounded-xl bg-accent lg:w-full" />
+            <div className="mt-4 hidden h-6 w-[50vw] animate-pulse rounded-xl bg-accent lg:block lg:w-full" />
+          </div>
+          <div className="mt-4 h-32 w-[90vw] animate-pulse bg-accent sm:w-full" />
+        </div>
       </div>
     </>
   ) : isError ? (
-    <>
-      <div>
-        <span>{error.message}</span>
-      </div>
-    </>
+    <div className="flex h-[35vw] flex-col rounded-xl p-4 py-4 sm:p-8">
+      <span>
+        An error occurred while loading the metadata for this collection. Please
+        try again later. You may take reference of this error message first.
+      </span>
+      <span className="mb-2 mt-4 font-bold">Error Message:</span>
+      <pre className="relative rounded-xl  border-2 border-slate-900 bg-red-100 p-4">
+        {error.message}
+        <Copy className="absolute right-2 top-2 h-5 w-5 text-slate-900 duration-200 ease-in-out hover:scale-105" />
+      </pre>
+    </div>
   ) : (
     <>
       <div className="flex flex-col">

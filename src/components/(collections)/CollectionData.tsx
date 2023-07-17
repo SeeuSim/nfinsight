@@ -1,6 +1,8 @@
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
+import { Copy } from "lucide-react";
+import { Space_Grotesk } from "next/font/google";
 import { useEffect, useRef, useState } from "react";
 
 import type { ITimeSeriesResult } from "@/lib/database/astra/utils";
@@ -9,7 +11,12 @@ import { useDimensions } from "@/lib/viewport/useDimensions";
 
 import DataChart from "./DataChart";
 import DataSelector from "./DataSelector";
-import { Copy } from "lucide-react";
+import { cn } from "@/lib/utils";
+
+const font = Space_Grotesk({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+});
 
 const timePeriods = [
   { value: "7", label: "7 days" },
@@ -53,24 +60,32 @@ const CollectionData = ({ collectionAddress }: ICollectionDataProps) => {
   }, [metric, timePeriod, refetch]);
 
   return (
-    <div className="mt-4 w-full space-y-4 border-t-2 border-slate-900 px-4 py-4">
-      <div className="inline-flex space-x-2">
-        <DataSelector
-          value={metric}
-          onValueChange={(value) => {
-            setMetric(value);
-            setTimePeriod("7");
-          }}
-          options={Metrics.map((metric) => ({
-            value: metric,
-            label: metric,
-          }))}
-        />
-        <DataSelector
-          value={timePeriod}
-          onValueChange={setTimePeriod}
-          options={timePeriods}
-        />
+    <div
+      className={cn(
+        "mt-4 w-full space-y-4 border-t-2 border-slate-900 px-8 py-4",
+        font.className
+      )}
+    >
+      <div className="inline-flex w-full items-center justify-between">
+        <span className="text-xl font-bold sm:text-2xl">Analytics</span>
+        <div className="inline-flex space-x-2">
+          <DataSelector
+            value={metric}
+            onValueChange={(value) => {
+              setMetric(value);
+              setTimePeriod("7");
+            }}
+            options={Metrics.map((metric) => ({
+              value: metric,
+              label: metric,
+            }))}
+          />
+          <DataSelector
+            value={timePeriod}
+            onValueChange={setTimePeriod}
+            options={timePeriods}
+          />
+        </div>
       </div>
       {isLoading || isFetching ? (
         <div className="grid h-[35vw] grid-cols-12 gap-4">
