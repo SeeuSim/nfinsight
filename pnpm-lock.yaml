@@ -7,6 +7,7 @@ specifiers:
   '@radix-ui/react-dialog': ^1.0.4
   '@radix-ui/react-select': ^1.2.2
   '@radix-ui/react-slot': ^1.0.2
+  '@radix-ui/react-tooltip': ^1.0.6
   '@stargate-oss/stargate-grpc-node-client': ^0.2.3
   '@tailwindcss/typography': ^0.5.9
   '@tanstack/react-query': ^4.29.19
@@ -58,6 +59,7 @@ dependencies:
   '@radix-ui/react-dialog': 1.0.4_lhsvdmrfrkqkmxtqosqgyd3k4i
   '@radix-ui/react-select': 1.2.2_lhsvdmrfrkqkmxtqosqgyd3k4i
   '@radix-ui/react-slot': 1.0.2_s3k22s5ab4eu26xuel7hiaraxy
+  '@radix-ui/react-tooltip': 1.0.6_lhsvdmrfrkqkmxtqosqgyd3k4i
   '@stargate-oss/stargate-grpc-node-client': 0.2.3
   '@tanstack/react-query': 4.29.19_biqbaboplfbrettd7655fr4n2y
   '@tanstack/react-query-devtools': 4.29.19_nuitd4fqvrl4dch2k5g6hd6fwe
@@ -1013,6 +1015,38 @@ packages:
       '@radix-ui/react-compose-refs': 1.0.1_s3k22s5ab4eu26xuel7hiaraxy
       '@types/react': 18.2.6
       react: 18.2.0
+    dev: false
+
+  /@radix-ui/react-tooltip/1.0.6_lhsvdmrfrkqkmxtqosqgyd3k4i:
+    resolution: {integrity: sha512-DmNFOiwEc2UDigsYj6clJENma58OelxD24O4IODoZ+3sQc3Zb+L8w1EP+y9laTuKCLAysPw4fD6/v0j4KNV8rg==}
+    peerDependencies:
+      '@types/react': '*'
+      '@types/react-dom': '*'
+      react: ^16.8 || ^17.0 || ^18.0
+      react-dom: ^16.8 || ^17.0 || ^18.0
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      '@types/react-dom':
+        optional: true
+    dependencies:
+      '@babel/runtime': 7.21.5
+      '@radix-ui/primitive': 1.0.1
+      '@radix-ui/react-compose-refs': 1.0.1_s3k22s5ab4eu26xuel7hiaraxy
+      '@radix-ui/react-context': 1.0.1_s3k22s5ab4eu26xuel7hiaraxy
+      '@radix-ui/react-dismissable-layer': 1.0.4_lhsvdmrfrkqkmxtqosqgyd3k4i
+      '@radix-ui/react-id': 1.0.1_s3k22s5ab4eu26xuel7hiaraxy
+      '@radix-ui/react-popper': 1.1.2_lhsvdmrfrkqkmxtqosqgyd3k4i
+      '@radix-ui/react-portal': 1.0.3_lhsvdmrfrkqkmxtqosqgyd3k4i
+      '@radix-ui/react-presence': 1.0.1_lhsvdmrfrkqkmxtqosqgyd3k4i
+      '@radix-ui/react-primitive': 1.0.3_lhsvdmrfrkqkmxtqosqgyd3k4i
+      '@radix-ui/react-slot': 1.0.2_s3k22s5ab4eu26xuel7hiaraxy
+      '@radix-ui/react-use-controllable-state': 1.0.1_s3k22s5ab4eu26xuel7hiaraxy
+      '@radix-ui/react-visually-hidden': 1.0.3_lhsvdmrfrkqkmxtqosqgyd3k4i
+      '@types/react': 18.2.6
+      '@types/react-dom': 18.2.4
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
     dev: false
 
   /@radix-ui/react-use-callback-ref/1.0.0_react@18.2.0:

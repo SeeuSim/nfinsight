@@ -10,6 +10,8 @@ import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { Globe } from "lucide-react";
 import Image from "next/image";
+import { Tooltip, TooltipTrigger } from "../ui/tooltip";
+import CollectionExternalLink from "./CollectionExternalLink";
 
 const font = Space_Grotesk({
   subsets: ["latin"],
@@ -89,20 +91,24 @@ const CollectionDetails = ({ collectionAddress }: ICollectionDetailsProps) => {
                 {data.name}
               </span>
               <div className="inline-flex space-x-1 rounded-sm border-2 border-slate-900 p-0.5 sm:space-x-3 sm:p-2">
-                <Link href={data.external_url ?? "#"}>
-                  <Globe className="h-6 w-6 text-slate-900 duration-300 ease-in-out hover:scale-110 hover:text-blue-800" />
-                </Link>
-                <Link
+                <CollectionExternalLink
+                  href={data.external_url ?? "#"}
+                  helperText="Collection External Website"
+                >
+                  <Globe className="h-6 w-6 text-slate-900 duration-300 ease-in-out hover:scale-110 hover:cursor-pointer hover:text-blue-800" />
+                </CollectionExternalLink>
+                <CollectionExternalLink
+                  helperText="View on Etherscan"
                   href={`https://etherscan.io/address/${collectionAddress}`}
                 >
                   <Image
-                    className="shrink-0 text-slate-900 duration-300 ease-in-out hover:scale-110 hover:text-blue-800"
+                    className="shrink-0 text-slate-900 duration-300 ease-in-out hover:scale-110 hover:cursor-pointer hover:text-blue-800"
                     alt="Etherscan"
                     src={"/images/etherscan-logo-circle.svg"}
                     height={24}
                     width={24}
                   />
-                </Link>
+                </CollectionExternalLink>
               </div>
             </div>
             <div className="">
