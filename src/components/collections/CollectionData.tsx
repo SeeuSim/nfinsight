@@ -39,9 +39,9 @@ const CollectionData = ({ collectionAddress }: ICollectionDataProps) => {
     </>
   ) : (
     <>
-      {data.rows.reverse().map((v, i) => (
+      {/* {data.rows.reverse().map((v, i) => (
         <pre key={i}>{JSON.stringify(v)}</pre>
-      ))}
+      ))} */}
     </>
   );
 };

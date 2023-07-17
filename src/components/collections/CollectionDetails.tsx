@@ -7,6 +7,8 @@ import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { ICollectionMetaResult } from "@/lib/database/postgres/getCollectionMetadata";
 import { Space_Grotesk } from "next/font/google";
 import { cn } from "@/lib/utils";
+import Link from "next/link";
+import { Globe } from "lucide-react";
 
 const font = Space_Grotesk({
   subsets: ["latin"],
@@ -69,52 +71,65 @@ const CollectionDetails = ({ collectionAddress }: ICollectionDetailsProps) => {
             </AspectRatio>
           </div>
         </div>
-        <div className="px-4 sm:px-8">
+        <div
+          className={cn(
+            "grid space-y-4 px-4 sm:space-y-2 sm:px-8 lg:grid-cols-4",
+            font.className
+          )}
+        >
           <div
             className={cn(
               "relative flex w-full flex-col space-y-1 border-0 !border-transparent px-1 outline-none sm:space-y-2",
-              font.className
+              "lg:col-span-3"
             )}
           >
-            <span className="text-xl font-bold sm:text-4xl">{data.name}</span>
-            <div className="mobp:max-w-[calc(100%-300px)]">
+            <div className="inline-flex items-center space-x-10">
+              <span className="text-xl font-bold mob:text-2xl mobp:text-3xl sm:text-4xl">
+                {data.name}
+              </span>
+              <Link href={data.external_url ?? "#"}>
+                <Globe className="h-6 w-6 text-slate-900 duration-300 ease-in-out hover:scale-110 hover:text-blue-800" />
+              </Link>
+            </div>
+            <div className="">
               <ReactMarkdown
-                className="prose prose-rose text-sm prose-h1:font-black prose-a:text-blue-600 sm:prose-a:font-light md:text-lg"
+                className="prose prose-rose text-sm prose-h1:font-black prose-a:text-blue-600 sm:text-base sm:prose-a:font-light md:text-lg"
                 remarkPlugins={[remarkGfm]}
               >
                 {data.description}
               </ReactMarkdown>
             </div>
-            <div className="flex flex-col rounded-md border-2 border-slate-900 px-4 py-2 mobp:absolute mobp:right-0 mobp:w-[300px]">
-              <span className="mb-2 text-xl font-black">Stats</span>
-              <div className="inline-flex w-full justify-between space-x-1">
-                <span className="font-medium">Tokens:</span>
-                <span>{data.tokens}</span>
-              </div>
-              <div className="inline-flex w-full justify-between space-x-1">
-                <span className="font-medium">Owners:</span>
-                <span>{data.owners}</span>
-              </div>
-              <div className="inline-flex w-full  justify-between space-x-1">
-                <span className="font-medium">Floor Price:</span>
-                <span>
-                  {new Number(data.floor).toLocaleString("en-GB", {
-                    maximumFractionDigits: 3,
-                  })}
-                  &nbsp;ETH
-                </span>
-              </div>
-              <div className="inline-flex w-full justify-between space-x-1">
-                <span className="whitespace-nowrap font-medium">
-                  Sales Volume:
-                </span>
-                <span>
-                  {new Number(data.sales_volume).toLocaleString("en-GB", {
-                    maximumFractionDigits: 0,
-                  })}
-                  &nbsp;ETH
-                </span>
-              </div>
+          </div>
+          <div className="flex h-[min-content] w-full flex-col rounded-md border-2 border-slate-900 px-4 py-2 mobp:max-w-[80%] lg:col-span-1 lg:max-w-full">
+            <span className="text-lg font-black sm:text-xl">Stats</span>
+            <hr className="mb-2 mt-0.5" />
+            <div className="inline-flex w-full justify-between space-x-1 text-sm md:text-base">
+              <span className="font-medium">Tokens:</span>
+              <span>{data.tokens}</span>
+            </div>
+            <div className="inline-flex w-full justify-between space-x-1 text-sm md:text-base">
+              <span className="font-medium">Owners:</span>
+              <span>{data.owners}</span>
+            </div>
+            <div className="inline-flex w-full  justify-between space-x-1 text-sm md:text-base">
+              <span className="font-medium">Floor Price:</span>
+              <span>
+                {new Number(data.floor).toLocaleString("en-GB", {
+                  maximumFractionDigits: 3,
+                })}
+                &nbsp;ETH
+              </span>
+            </div>
+            <div className="inline-flex w-full justify-between space-x-1 text-sm md:text-base">
+              <span className="whitespace-nowrap font-medium">
+                Sales Volume:
+              </span>
+              <span>
+                {new Number(data.sales_volume).toLocaleString("en-GB", {
+                  maximumFractionDigits: 0,
+                })}
+                &nbsp;ETH
+              </span>
             </div>
           </div>
         </div>
