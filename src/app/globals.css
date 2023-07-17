@@ -78,15 +78,18 @@
 }
 
 #search-results {
-  scrollbar-width: 4px;
+  scrollbar-width: thin;
 }
 
 ::-webkit-scrollbar-thumb {
   border-radius: 50px;
+  width: 2px;
 }
 ::-webkit-scrollbar-track {
   border-radius: 50px;
+  width: 2px;
 }
 ::-webkit-scrollbar-track-piece {
   border-radius: 50px;
+  width: 2px;
 }
