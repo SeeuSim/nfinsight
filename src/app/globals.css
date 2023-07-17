@@ -1,7 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
- 
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -76,3 +76,21 @@
     @apply bg-background text-foreground;
   }
 }
+
+#search-results {
+  scrollbar-width: thin;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 50px;
+  width: 2px;
+}
+::-webkit-scrollbar-track {
+  border-radius: 50px;
+  width: 2px;
+}
+::-webkit-scrollbar-track-piece {
+  border-radius: 50px;
+  width: 2px;
+}
+

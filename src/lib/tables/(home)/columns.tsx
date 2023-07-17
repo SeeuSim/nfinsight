@@ -1,15 +1,18 @@
 import { ColumnDef } from "@tanstack/react-table";
+import Link from "next/link";
 
-import type { RankResultType } from "@/lib/database/postgres/dashClient";
+import type { IRankResultType } from "@/lib/database/postgres/getRankedCollections";
 import CollectionThumbnail from "@/components/images/CollectionThumbnail";
 
-interface GetHomeColumnProps {
+interface IGetHomeColumnProps {
   displayValue: string;
 }
 
 export const getHomeColumns: ({
   displayValue,
-}: GetHomeColumnProps) => ColumnDef<RankResultType>[] = ({ displayValue }) => [
+}: IGetHomeColumnProps) => ColumnDef<IRankResultType>[] = ({
+  displayValue,
+}) => [
   {
     id: "index",
     header: ({ column }) => null,
@@ -36,11 +39,18 @@ export const getHomeColumns: ({
         </span>
       </div>
     ),
-    cell: ({ row }) => (
-      <div>
-        <span className="text-base font-medium">{row.getValue("name")}</span>
-      </div>
-    ),
+    cell: ({ row }) => {
+      const address = row.getValue("address") as string;
+      return (
+        <Link href={`/collections/${address}`}>
+          <div>
+            <span className="text-base font-medium">
+              {row.getValue("name")}
+            </span>
+          </div>
+        </Link>
+      );
+    },
   },
   {
     accessorKey: "floor",
@@ -88,5 +98,12 @@ export const getHomeColumns: ({
         </div>
       );
     },
+  },
+  {
+    accessorKey: "address",
+    header: ({ column }) => <div className="h-0 w-0" />,
+    cell: ({ row }) => <div className="h-0 w-0" />,
+    maxSize: 0,
+    show: false,
   },
 ];

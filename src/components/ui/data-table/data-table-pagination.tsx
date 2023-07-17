@@ -22,7 +22,7 @@ const DataTablePagination = <TData,>({
         onClick={() => table.previousPage()}
       >
         <ChevronLeft className="h-5 w-5" />
-        <span>Previous</span>
+        <span className="hidden sm:block">Previous</span>
       </button>
       <div
         className={cn(
@@ -43,7 +43,7 @@ const DataTablePagination = <TData,>({
         disabled={!table.getCanNextPage()}
         onClick={() => table.nextPage()}
       >
-        <span>Next</span>
+        <span className="hidden sm:block">Next</span>
         <ChevronRight className="h-5 w-5" />
       </button>
     </div>

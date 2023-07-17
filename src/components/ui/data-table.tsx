@@ -4,6 +4,7 @@ import { Space_Grotesk } from "next/font/google";
 
 import {
   ColumnDef,
+  VisibilityState,
   flexRender,
   getCoreRowModel,
   getPaginationRowModel,
@@ -19,10 +20,9 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import { cn } from "@/lib/utils";
 import { Skeleton } from "./skeleton";
 import DataTablePagination from "./data-table/data-table-pagination";
+import { useState } from "react";
 
 const font = Space_Grotesk({
   subsets: ["latin"],
@@ -39,11 +39,22 @@ export function DataTable<TData, TValue>({
   data,
   loading,
 }: DataTableProps<TData, TValue>) {
+  //Hide columns initially
+  const [columnVisibility] = useState<VisibilityState>(
+    Object.fromEntries(
+      (columns as { accessorKey: string; show?: boolean }[])
+        .filter((col) => col.show !== undefined && col.show === false)
+        .map((col) => [col.accessorKey, col.show as boolean])
+    )
+  );
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
+    initialState: {
+      columnVisibility: columnVisibility,
+    },
   });
 
   return (
@@ -54,7 +65,10 @@ export function DataTable<TData, TValue>({
             <TableRow key={headerGroup.id}>
               {headerGroup.headers.map((header) => {
                 return (
-                  <TableHead key={header.id}>
+                  <TableHead
+                    className="px-0.5 py-2 first:pl-1 last:pl-2 sm:p-4 sm:first:p-4 sm:last:p-4"
+                    key={header.id}
+                  >
                     {header.isPlaceholder
                       ? null
                       : flexRender(
@@ -76,7 +90,10 @@ export function DataTable<TData, TValue>({
                 data-state={row.getIsSelected() && "selected"}
               >
                 {row.getVisibleCells().map((cell) => (
-                  <TableCell key={cell.id}>
+                  <TableCell
+                    key={cell.id}
+                    className="px-0.5 py-2 first:pl-1 last:pl-2 sm:p-4 sm:first:p-4 sm:last:p-4"
+                  >
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </TableCell>
                 ))}

@@ -1,13 +1,14 @@
 import { create } from "zustand";
 
-interface ISearchState {
+interface ISearchQueryState {
   searchValue: string;
   setSearchValue: (newValue: string) => void;
 }
 
-export const useSearchState = create<ISearchState>()((set) => ({
+export const useSearchQueryState = create<ISearchQueryState>()((set) => ({
   searchValue: "",
-  setSearchValue: (newValue) => set((__unused) => ({
-    searchValue: newValue
-  }))
-}))
+  setSearchValue: (newValue) =>
+    set((__state) => ({
+      searchValue: newValue,
+    })),
+}));

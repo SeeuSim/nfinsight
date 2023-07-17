@@ -4,7 +4,7 @@ import type { QueryResult } from "pg";
 
 import MainLayout from "@/components/layouts/MainLayout";
 import { DataTable } from "@/components/ui/data-table";
-import type { RankResultType } from "@/lib/database/postgres/dashClient";
+import type { IRankResultType } from "@/lib/database/postgres/getRankedCollections";
 import { getHomeColumns } from "@/lib/tables/(home)/columns";
 import { useEffect } from "react";
 import { useHomeState } from "@/lib/state/homeState";
@@ -16,7 +16,7 @@ export default function MainPage() {
     state.duration,
     state.label,
   ]);
-  const { data, isLoading, refetch } = useQuery<QueryResult<RankResultType>>({
+  const { data, isLoading, refetch } = useQuery<QueryResult<IRankResultType>>({
     queryKey: ["meta"],
     queryFn: async () => {
       return await fetch(`/api/meta`, {
@@ -41,7 +41,7 @@ export default function MainPage() {
 
   return (
     <MainLayout>
-      <div className="flex w-full flex-col space-y-4 p-8 pt-4">
+      <div className="flex w-full flex-col space-y-4 p-2 pb-8 sm:p-4 xl:p-8 xl:pt-4">
         <DataSelector />
         <DataTable
           loading={isLoading}
