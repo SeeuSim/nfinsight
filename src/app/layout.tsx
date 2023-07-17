@@ -1,5 +1,6 @@
 import "./globals.css";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { Analytics } from "@vercel/analytics/react";
 
 import QueryProvider from "@/components/providers/QueryProvider";
 import Navbar from "@/components/(navbar)/Navbar";
@@ -21,6 +22,7 @@ export default function RootLayout({
           <QueryProvider>
             <Navbar />
             {children}
+            <Analytics />
             <ReactQueryDevtools initialIsOpen={false} />
           </QueryProvider>
         </main>
