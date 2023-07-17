@@ -5,7 +5,7 @@ let corsAllowedOrigins = ["http://localhost:3000", "http://192.168.1.8:3000"];
 
 if (process.env.VERCEL_URL) {
   //for prod
-  corsAllowedOrigins = [process.env.VERCEL_URL];
+  corsAllowedOrigins = ["https://nfinsight.vercel.app"];
 }
 
 function runMiddleware(
@@ -35,16 +35,16 @@ export const withMethods = (
   return async function (req: NextApiRequest, res: NextApiResponse) {
     await runMiddleware(req, res, cors);
     // custom CORS validation
-    if (
-      !req.headers.origin ||
-      !corsAllowedOrigins.includes(req.headers.origin)
-    ) {
-      return res.status(403).end();
-    }
+    // if (
+    //   !req.headers.origin ||
+    //   !corsAllowedOrigins.includes(req.headers.origin)
+    // ) {
+    //   return res.status(403).end();
+    // }
 
-    if (!req.method || !methods.includes(req.method)) {
-      return res.status(405).end();
-    }
+    // if (!req.method || !methods.includes(req.method)) {
+    //   return res.status(405).end();
+    // }
 
     return handler(req, res);
   };
