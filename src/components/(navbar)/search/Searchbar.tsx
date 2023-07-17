@@ -122,7 +122,7 @@ const Searchbar = ({ className = "" }) => {
           <Search className="block duration-100 ease-linear group-hover:block group-hover:text-slate-100 lg:hidden" />
         </PopoutIcon>
       </AlertDialogTrigger>
-      <AlertDialogContent className="top-[150px] inline-flex !w-[80vw] max-w-screen-md items-center border-2 border-slate-900 p-0 pr-1.5">
+      <AlertDialogContent className="top-[100px] inline-flex !w-[calc(100vw-8px)] max-w-screen-md items-center border-2 border-slate-900 p-0 pr-1.5 sm:top-[150px] sm:!w-[80vw]">
         <input
           autoFocus
           ref={searchRef}

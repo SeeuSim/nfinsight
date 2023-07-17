@@ -20,6 +20,7 @@ export const getDataPoints = async ({
     .map((v) => v.key)
     .join(", ")} FROM nf_main_keyspace.data_point
   WHERE collection = ?
+  ORDER BY time_stamp DESC
   LIMIT ?
   `);
 

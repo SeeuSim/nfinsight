@@ -76,3 +76,17 @@
     @apply bg-background text-foreground;
   }
 }
+
+#search-results {
+  scrollbar-width: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 50px;
+}
+::-webkit-scrollbar-track {
+  border-radius: 50px;
+}
+::-webkit-scrollbar-track-piece {
+  border-radius: 50px;
+}

@@ -64,13 +64,15 @@ const SearchResultsDisplay = ({
   data?: QueryResult<ISearchResultType>;
 } & ISearchSubComponentProps) => (
   <div
+    id="search-results"
     className={cn(
-      "absolute top-[calc(100%+12px)] grid w-full grid-cols-1 flex-col place-items-center items-start gap-y-3 rounded-lg border-2 border-slate-900 bg-white px-3 py-3 md:grid-cols-2",
-      font.className
+      "absolute top-[calc(100%+12px)] grid max-h-[calc(100vh-150px)] w-full grid-cols-1 flex-col place-items-center items-start gap-y-3 overflow-y-scroll rounded-lg border-2 border-slate-900 bg-white px-3 py-3 sm:max-h-max sm:overflow-auto md:grid-cols-2",
+      font.className,
+      "scrollbar-w-0.5 scrollbar-rounded-full overflow-x-clip scrollbar-thin scrollbar-track-transparent scrollbar-thumb-slate-300"
     )}
   >
     {isLoading ? (
-      <div className="col-span-2 mx-auto inline-flex max-w-min items-center space-x-2">
+      <div className="col-span-2 mx-auto mb-2 inline-flex max-w-min items-center space-x-2">
         <span>Loading</span>
         <Loader2 className="animate-spin duration-500" />
       </div>

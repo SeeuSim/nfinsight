@@ -41,7 +41,7 @@ export default function MainPage() {
 
   return (
     <MainLayout>
-      <div className="flex w-full flex-col space-y-4 p-8 pt-4">
+      <div className="flex w-full flex-col space-y-4 p-2 pb-8 xl:p-8 xl:pt-4">
         <DataSelector />
         <DataTable
           loading={isLoading}

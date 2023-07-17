@@ -1,7 +1,7 @@
 import Cors from "cors";
 import type { NextApiHandler, NextApiRequest, NextApiResponse } from "next";
 
-const corsAllowedOrigins = ["http://localhost:3000"];
+const corsAllowedOrigins = ["http://localhost:3000", "http://192.168.1.8:3000"];
 
 function runMiddleware(
   req: NextApiRequest,

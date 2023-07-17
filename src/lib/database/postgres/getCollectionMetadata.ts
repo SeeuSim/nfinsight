@@ -20,11 +20,12 @@ export const getCollectionMetadata = async (collectionAddress: string) => {
     return undefined;
   }
   const pool = getPool();
-  return await pool.query<ICollectionMetaResult>(
+  const res = await pool.query<ICollectionMetaResult>(
     `
     SELECT * FROM collection
     WHERE LOWER(address) = LOWER($1)
     `,
     [address]
   );
+  return res.rows ? res.rows[0] : undefined;
 };

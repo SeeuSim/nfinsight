@@ -19,7 +19,7 @@ const MobileMenu = () => {
       </SheetTrigger>
       <SheetContent
         className={cn(
-          "w-[400px] border-l-2 border-slate-900 bg-blue-400 sm:w-[540px]",
+          "w-[100vw] border-l-2 border-slate-900 bg-blue-400 sm:w-[540px]",
           NavbarFont.className,
           "flex flex-col"
         )}
