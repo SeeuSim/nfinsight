@@ -1,10 +1,10 @@
 import { NextApiRequest, NextApiResponse } from "next";
+import { getDataPoints } from "@/lib/database/astra/getDatapoints";
 import {
   ALLOWED_METRICS,
   Metrics,
   MetricSet,
-  getDataPoints,
-} from "@/lib/database/astra/getDatapoints";
+} from "@/lib/database/astra/utils";
 import { withMethods } from "@/lib/middlewares/withMethods";
 
 interface IDataPayload {
@@ -24,7 +24,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
   try {
     const response = await getDataPoints({
-      metric: ALLOWED_METRICS[params.metric as (typeof Metrics)[number]],
+      metric: params.metric as (typeof Metrics)[number],
       collectionAddress: params.collectionAddress,
       limit: params.limit,
     });

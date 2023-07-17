@@ -1,10 +1,10 @@
 "use client";
 
-import type { ICollectionMetaResult } from "@/lib/database/postgres/getCollectionMetadata";
-import type { Value } from "@stargate-oss/stargate-grpc-node-client";
 import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
-import { QueryResult } from "pg";
+import type { QueryResult } from "pg";
+import { ITimeSeriesPoint } from "@/lib/database/astra/utils";
+import type { ICollectionMetaResult } from "@/lib/database/postgres/getCollectionMetadata";
 
 const CollectionDetailsPage = ({
   params,
@@ -34,7 +34,7 @@ const CollectionDetailsPage = ({
     },
   });
 
-  const dataPoints = useQuery<Value[], Error>({
+  const dataPoints = useQuery<ITimeSeriesPoint[], Error>({
     queryKey: [`collections/data/${params.collectionAddress}`],
     queryFn: async () => {
       return await fetch(`/api/data`, {
