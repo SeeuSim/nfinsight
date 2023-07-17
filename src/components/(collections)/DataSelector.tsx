@@ -5,7 +5,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "../ui/select";
+} from "@/components/ui/select";
 
 interface IDataSelectorProps {
   value: string;
@@ -23,7 +23,7 @@ const DataSelector = ({
 }: IDataSelectorProps) => {
   return (
     <Select value={value} onValueChange={onValueChange}>
-      <SelectTrigger className="space-x-2 border-2 border-slate-900 !outline-none ring-0 focus:ring-0">
+      <SelectTrigger className="min-w-max space-x-2 whitespace-nowrap border-2 border-slate-900 !outline-none ring-0 focus:ring-0">
         <SelectValue className="!outline-none" />
         <ChevronDown className="h-4 w-4" />
       </SelectTrigger>
