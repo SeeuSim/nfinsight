@@ -4,6 +4,7 @@ import type { NextApiHandler, NextApiRequest, NextApiResponse } from "next";
 let corsAllowedOrigins = ["http://localhost:3000", "http://192.168.1.8:3000"];
 
 if (process.env.VERCEL_URL) {
+  //for prod
   corsAllowedOrigins = [process.env.VERCEL_URL];
 }
 
