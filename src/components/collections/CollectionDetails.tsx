@@ -5,6 +5,12 @@ import remarkGfm from "remark-gfm";
 import CollectionArtwork from "@/components/images/CollectionArtwork";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { ICollectionMetaResult } from "@/lib/database/postgres/getCollectionMetadata";
+import { Space_Grotesk } from "next/font/google";
+import { cn } from "@/lib/utils";
+
+const font = Space_Grotesk({
+  subsets: ["latin"],
+});
 
 interface ICollectionDetailsProps {
   collectionAddress: string;
@@ -64,15 +70,51 @@ const CollectionDetails = ({ collectionAddress }: ICollectionDetailsProps) => {
           </div>
         </div>
         <div className="px-4 sm:px-8">
-          <div className="flex w-full flex-col space-y-1 border-0 !border-transparent px-1 outline-none sm:space-y-2">
+          <div
+            className={cn(
+              "relative flex w-full flex-col space-y-1 border-0 !border-transparent px-1 outline-none sm:space-y-2",
+              font.className
+            )}
+          >
             <span className="text-xl font-bold sm:text-4xl">{data.name}</span>
-            <div>
+            <div className="mobp:max-w-[calc(100%-300px)]">
               <ReactMarkdown
-                className="prose prose-rose text-sm prose-h1:font-black prose-a:text-blue-600 sm:text-base sm:prose-a:font-light"
+                className="prose prose-rose text-sm prose-h1:font-black prose-a:text-blue-600 sm:prose-a:font-light md:text-lg"
                 remarkPlugins={[remarkGfm]}
               >
                 {data.description}
               </ReactMarkdown>
+            </div>
+            <div className="flex flex-col rounded-md border-2 border-slate-900 px-4 py-2 mobp:absolute mobp:right-0 mobp:w-[300px]">
+              <span className="mb-2 text-xl font-black">Stats</span>
+              <div className="inline-flex w-full justify-between space-x-1">
+                <span className="font-medium">Tokens:</span>
+                <span>{data.tokens}</span>
+              </div>
+              <div className="inline-flex w-full justify-between space-x-1">
+                <span className="font-medium">Owners:</span>
+                <span>{data.owners}</span>
+              </div>
+              <div className="inline-flex w-full  justify-between space-x-1">
+                <span className="font-medium">Floor Price:</span>
+                <span>
+                  {new Number(data.floor).toLocaleString("en-GB", {
+                    maximumFractionDigits: 3,
+                  })}
+                  &nbsp;ETH
+                </span>
+              </div>
+              <div className="inline-flex w-full justify-between space-x-1">
+                <span className="whitespace-nowrap font-medium">
+                  Sales Volume:
+                </span>
+                <span>
+                  {new Number(data.sales_volume).toLocaleString("en-GB", {
+                    maximumFractionDigits: 0,
+                  })}
+                  &nbsp;ETH
+                </span>
+              </div>
             </div>
           </div>
         </div>

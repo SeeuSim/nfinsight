@@ -71,10 +71,17 @@ module.exports = {
         "accordion-up": "accordion-up 0.2s ease-out",
       },
       screens: {
-        "mob": "300px",
-        "mobp": "350px",
-      }
+        mob: "300px",
+        mobp: "350px",
+      },
+      fontFamily: {
+        satoshi: '"Satoshi"',
+      },
     },
   },
-  plugins: [require("tailwindcss-animate"), require('@tailwindcss/typography'), require("tailwind-scrollbar")],
+  plugins: [
+    require("tailwindcss-animate"),
+    require("@tailwindcss/typography"),
+    require("tailwind-scrollbar"),
+  ],
 };
