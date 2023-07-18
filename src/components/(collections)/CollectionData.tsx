@@ -111,11 +111,8 @@ const CollectionData = ({ collectionAddress }: ICollectionDataProps) => {
           </pre>
         </div>
       ) : (
-        <div className="w-full border-2 border-slate-900 pr-0.5 pt-2 sm:p-2 sm:pr-4">
-          <div
-            ref={containerRef}
-            className="flex w-[calc(100%+24px)] -translate-x-6"
-          >
+        <div className="w-full border-2 border-slate-900 pr-0.5 pt-2 sm:pr-4">
+          <div ref={containerRef} className="flex w-full">
             <DataChart
               metric={metric as (typeof Metrics)[number]}
               width={width}
