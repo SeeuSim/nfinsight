@@ -66,7 +66,10 @@ const CollectionData = ({ collectionAddress }: ICollectionDataProps) => {
         font.className
       )}
     >
-      <div className="flex w-full flex-col items-center sm:flex-row sm:justify-between">
+      <div
+        key="data"
+        className="flex w-full flex-col items-center sm:flex-row sm:justify-between"
+      >
         <span className="mr-auto text-xl font-bold sm:text-2xl">Analytics</span>
         <div className="mr-auto mt-2 inline-flex space-x-2 sm:mt-0">
           <DataSelector

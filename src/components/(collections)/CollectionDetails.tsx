@@ -78,7 +78,7 @@ const CollectionDetails = ({ collectionAddress }: ICollectionDetailsProps) => {
     </div>
   ) : (
     <>
-      <div className="flex flex-col">
+      <div key="details" className="flex flex-col">
         <div className="relative mb-8 border-b-2 border-slate-900 sm:mb-12">
           <div className="max-h-[320px] w-full overflow-clip">
             <AspectRatio ratio={2}>
