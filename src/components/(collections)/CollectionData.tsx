@@ -62,13 +62,13 @@ const CollectionData = ({ collectionAddress }: ICollectionDataProps) => {
   return (
     <div
       className={cn(
-        "mt-4 w-full space-y-4 border-t-2 border-slate-900 px-8 py-4",
+        "mt-4 w-full space-y-4 border-t-2 border-slate-900 px-2 py-4 sm:px-8",
         font.className
       )}
     >
-      <div className="inline-flex w-full items-center justify-between">
-        <span className="text-xl font-bold sm:text-2xl">Analytics</span>
-        <div className="inline-flex space-x-2">
+      <div className="flex w-full flex-col items-center sm:flex-row sm:justify-between">
+        <span className="mr-auto text-xl font-bold sm:text-2xl">Analytics</span>
+        <div className="mr-auto mt-2 inline-flex space-x-2 sm:mt-0">
           <DataSelector
             value={metric}
             onValueChange={(value) => {
@@ -108,8 +108,11 @@ const CollectionData = ({ collectionAddress }: ICollectionDataProps) => {
           </pre>
         </div>
       ) : (
-        <div className="w-full border-2 border-slate-900 p-2 pr-4">
-          <div ref={containerRef} className="flex w-full">
+        <div className="w-full border-2 border-slate-900 pr-0.5 pt-2 sm:p-2 sm:pr-4">
+          <div
+            ref={containerRef}
+            className="flex w-[calc(100%+24px)] -translate-x-6"
+          >
             <DataChart
               metric={metric as (typeof Metrics)[number]}
               width={width}

@@ -63,17 +63,17 @@ const Selector = <T extends Option>({
     <Select value={value} onValueChange={onValueChange}>
       <SelectTrigger
         className={cn(
-          "relative w-min space-x-2 whitespace-nowrap border-0 pr-8 text-lg ring-0 hover:bg-slate-100 hover:font-black hover:underline hover:underline-offset-[6px] focus:border-0 focus:ring-0",
+          "relative w-min whitespace-nowrap p-1 pr-8 ring-0 hover:bg-slate-100 hover:font-black hover:underline hover:underline-offset-[6px] focus:border-0 focus:ring-0 mobp:border-0 mobp:py-2 mobp:pl-1.5 mobp:pr-7 mobp:text-lg mobp:!outline-none",
           fontClassName
         )}
         onPointerDown={transitionDown}
         onPointerUp={transitionUp}
         onFocus={transitionUp} //When the user clicks elsewhere
       >
-        <SelectValue className="flex-shrink-0" />
+        <SelectValue className="mr-auto flex-shrink-0 text-left" />
         <ChevronDown
           ref={selectTriggerRef}
-          className="absolute right-1.5 h-5 w-5"
+          className="absolute right-1.5 h-4 w-4 mobp:h-5 mobp:w-5"
         />
       </SelectTrigger>
       <SelectContent

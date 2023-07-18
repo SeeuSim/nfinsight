@@ -79,7 +79,7 @@ const CollectionDetails = ({ collectionAddress }: ICollectionDetailsProps) => {
   ) : (
     <>
       <div className="flex flex-col">
-        <div className="relative mb-8 sm:mb-12">
+        <div className="relative mb-8 border-b-2 border-slate-900 sm:mb-12">
           <div className="max-h-[320px] w-full overflow-clip">
             <AspectRatio ratio={2}>
               <CollectionArtwork
@@ -137,7 +137,7 @@ const CollectionDetails = ({ collectionAddress }: ICollectionDetailsProps) => {
                 className={cn(
                   "prose prose-rose text-sm prose-h1:font-black prose-a:text-blue-600 sm:text-base sm:prose-a:font-light md:text-lg",
                   hide
-                    ? "prose-p:w-[90vw] prose-p:truncate md:prose-p:w-full lg:prose-p:overflow-visible lg:prose-p:whitespace-pre-wrap"
+                    ? "h-6 overflow-clip prose-p:w-[90vw] prose-p:truncate md:prose-p:w-full lg:h-full lg:prose-p:overflow-visible lg:prose-p:whitespace-pre-wrap"
                     : ""
                 )}
                 remarkPlugins={[remarkGfm]}

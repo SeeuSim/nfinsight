@@ -54,11 +54,11 @@ const DataSelector = () => {
   return (
     <div
       className={cn(
-        "grid w-fit grid-cols-2 grid-rows-2 items-center",
+        "grid w-fit grid-cols-2 grid-rows-2 items-center gap-1 mobp:gap-0",
         font.className
       )}
     >
-      <span className="whitespace-nowrap text-end text-sm font-semibold md:text-xl">
+      <span className="whitespace-nowrap text-end text-xs font-semibold mobp:text-sm md:text-xl">
         Top Collections by&nbsp;
       </span>
       <Selector
@@ -67,7 +67,7 @@ const DataSelector = () => {
         onValueChange={onSelectRank}
         fontClassName={font.className}
       />
-      <span className="whitespace-nowrap text-end text-sm font-semibold md:text-xl">
+      <span className="whitespace-nowrap text-end text-xs font-semibold mobp:text-sm md:text-xl">
         For&nbsp;
       </span>
       <Selector
