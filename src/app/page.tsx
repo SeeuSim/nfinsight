@@ -9,6 +9,7 @@ import { getHomeColumns } from "@/lib/tables/(home)/columns";
 import { useEffect } from "react";
 import { useHomeState } from "@/lib/state/homeState";
 import DataSelector from "@/components/(home)/DataSelector";
+import Head from "next/head";
 
 export default function MainPage() {
   const [rank, duration, label] = useHomeState((state) => [

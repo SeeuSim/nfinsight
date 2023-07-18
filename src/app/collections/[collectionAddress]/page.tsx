@@ -21,6 +21,7 @@ const CollectionDetailsPage = ({
 
   return (
     <MainLayout>
+      <title>NFInsight - Collection</title>
       <CollectionDetails collectionAddress={params.collectionAddress} />
       <CollectionData collectionAddress={params.collectionAddress} />
     </MainLayout>
