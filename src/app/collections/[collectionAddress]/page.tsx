@@ -23,12 +23,18 @@ export async function generateMetadata(
     [address]
   );
 
+  if (name.rows.length !== 1) {
+    //invalid address
+    redirect("/");
+  }
+
   return {
     title: `${name.rows[0].name} | NFInsight`,
   };
 }
 
 const CollectionDetailsPage = async ({ params }: Props) => {
+  // No address, or invalid pattern (i.e. injection statements)
   if (
     !params.collectionAddress ||
     params.collectionAddress.match(/0x[A-Z0-9]{40,}/gi) === null
