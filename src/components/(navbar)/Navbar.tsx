@@ -17,31 +17,33 @@ const Navbar = () => {
   return (
     <div
       className={cn(
-        `fixed left-0 right-0 top-0 z-50 flex h-20 items-center justify-between border-b-2 shadow-sm backdrop-blur-sm`,
+        `fixed left-0 right-0 top-0 z-50 h-20 border-b-2 shadow-sm backdrop-blur-sm`,
         `border-slate-900 dark:border-slate-700`,
         `bg-blue-300 dark:bg-slate-900/75`,
         NavbarFont.className
       )}
     >
-      <Logo copyText="NFInsight" />
-      <div className="hidden space-x-6 md:inline-flex">
-        {navConstants.common.map((commonLink, index) => (
-          <ShadowLink key={index} {...commonLink} />
-        ))}
-      </div>
-      <div className="inline-flex h-full items-center">
-        <Searchbar className="mr-2" />
-        <div className="hidden h-full items-center md:inline-flex">
-          {navConstants.unauthenticated.map((unAuthedLink, index) => (
-            <div
-              key={index}
-              className={cn(unAuthedLink.background ?? "", "h-full")}
-            >
-              <AuthLink {...unAuthedLink} />
-            </div>
+      <div className="mx-auto flex h-full max-w-screen-xl items-center justify-between border-slate-900 xl:border-l-2 xl:border-r-2">
+        <Logo copyText="NFInsight" />
+        <div className="hidden space-x-6 md:inline-flex">
+          {navConstants.common.map((commonLink, index) => (
+            <ShadowLink key={index} {...commonLink} />
           ))}
         </div>
-        <MobileMenu />
+        <div className="inline-flex h-full items-center">
+          <Searchbar className="mr-2" />
+          <div className="hidden h-full items-center md:inline-flex">
+            {navConstants.unauthenticated.map((unAuthedLink, index) => (
+              <div
+                key={index}
+                className={cn(unAuthedLink.background ?? "", "h-full")}
+              >
+                <AuthLink {...unAuthedLink} />
+              </div>
+            ))}
+          </div>
+          <MobileMenu />
+        </div>
       </div>
     </div>
   );

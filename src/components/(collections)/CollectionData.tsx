@@ -91,7 +91,7 @@ const CollectionData = ({ collectionAddress }: ICollectionDataProps) => {
         </div>
       </div>
       {isLoading || isFetching ? (
-        <div className="grid h-[35vw] grid-cols-12 gap-4">
+        <div className="grid h-[300px] grid-cols-12 gap-4">
           <div className="col-span-1 animate-pulse bg-accent" />
           <div className="col-span-11 grid grid-rows-4 gap-4">
             <div className=" row-span-3 animate-pulse rounded-xl bg-accent" />
@@ -99,7 +99,7 @@ const CollectionData = ({ collectionAddress }: ICollectionDataProps) => {
           </div>
         </div>
       ) : isError ? (
-        <div className="flex h-[35vw] flex-col rounded-xl py-4">
+        <div className="flex h-[300px] flex-col rounded-xl py-4">
           <span>
             An error occurred while loading the data for this collection. Please
             try again later. You may take reference of this error message first.

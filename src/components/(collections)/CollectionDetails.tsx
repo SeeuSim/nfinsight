@@ -92,7 +92,7 @@ const CollectionDetails = ({ collectionAddress }: ICollectionDetailsProps) => {
                 />
               </AspectRatio>
             </div>
-            <div className="absolute left-4 top-full w-[128px] -translate-y-[80%] overflow-clip rounded-2xl border-4 border-gray-400 bg-gradient-to-tr from-fuchsia-200 to-blue-200 shadow-md sm:left-8 sm:w-[200px]">
+            <div className="absolute left-4 top-full w-[128px] -translate-y-[80%] overflow-clip rounded-2xl border-4 border-slate-900 bg-gradient-to-tr from-fuchsia-200 to-blue-200 shadow-md sm:left-8 sm:w-[200px]">
               <AspectRatio ratio={1}>
                 <CollectionArtwork src={data.image} alt="Collection Artwork" />
               </AspectRatio>

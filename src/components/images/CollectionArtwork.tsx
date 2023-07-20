@@ -11,7 +11,7 @@ const CollectionArtwork = ({
   const [isError, setIsError] = useState(false);
   return (
     <Image
-      className="flex-shrink-0 object-cover"
+      className="flex-shrink-0 object-cover mix-blend-normal"
       src={isError ? altSrc ?? "/images/collection_fallback.webp" : src ?? ""}
       alt={alt ?? ""}
       fill
