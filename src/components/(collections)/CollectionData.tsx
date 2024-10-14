@@ -8,10 +8,10 @@ import { useEffect, useRef, useState } from "react";
 import type { ITimeSeriesResult } from "@/lib/database/astra/utils";
 import { Metrics } from "@/lib/database/types";
 import { useDimensions } from "@/lib/viewport/useDimensions";
+import { cn } from "@/lib/utils";
 
 import DataChart from "./DataChart";
 import DataSelector from "./DataSelector";
-import { cn } from "@/lib/utils";
 
 const font = Space_Grotesk({
   subsets: ["latin"],
