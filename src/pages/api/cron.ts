@@ -1,10 +1,18 @@
 import { getDataPoints } from "@/lib/database/astra/getDatapoints";
 import { MetricSet } from "@/lib/database/types";
-import { withMethods } from "@/lib/middlewares/withMethods";
-import { NextApiHandler } from "next";
+import { NextApiRequest, NextApiResponse } from "next";
 
 // TO keep database alive
-const handler: NextApiHandler = async (_req, res) => {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
+  if (
+    req.headers.get &&
+    req.headers["authorization"] !== `Bearer ${process.env.CRON_SECRET}`
+  ) {
+    return res.status(401).end("Unauthorized");
+  }
   const addresses = [
     "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d", // bape
     "0xb47e3cd837ddf8e4c57f05d70ab865de6e193bbb", // cryptopunk
@@ -19,7 +27,5 @@ const handler: NextApiHandler = async (_req, res) => {
     limit: 10,
   });
   console.log(`Received response: ${JSON.stringify(response)}`);
-  return res.status(200).json("OK");
-};
-
-export default withMethods(["GET"], handler);
+  res.status(200).end("Hello Cron!");
+}
